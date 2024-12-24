@@ -1,0 +1,134 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 13px/20px "Open Sans", sans-serif;
+    background: #202020;
+}
+
+a {
+    text-decoration: none;
+    color: #F5BB69;
+}
+
+.Zeptain {
+    width: 270px;
+    margin: 80px auto 20px;
+    background: #303030;
+    box-shadow: 0 0 5px #080808;
+    border: 1px solid #454545;
+}
+
+    .Zeptain h2 {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #808080;
+        font-weight: normal;
+        text-align: center;
+        padding: 17px 0;
+        background: #202020;
+        border-bottom: 1px solid #454545;
+    }
+
+form {
+    padding: 30px 20px;
+}
+
+    form input {
+        font-family: "Open Sans", sans-serif;
+    }
+
+        form input[type="text"], form input[type="password"] {
+            border: none;
+            color: #FFF;
+            font-size: 13px;
+            margin-bottom: 15px;
+            width: 73%;
+            background: #202020;
+        }
+
+        form span, form input[type="text"], form input[type="password"] {
+            padding: 10px 13px;
+        }
+
+    form span {
+        background: #D32F2F;
+    }
+
+.box label {
+    cursor: pointer;
+    font-size: 12px;
+    color: #959595;
+}
+
+.box input[type="checkbox"] {
+    display: none;
+}
+
+    .box input[type="checkbox"] + label span {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin: -2px 5px 0 1px;
+        vertical-align: middle;
+        background: url("../images/check.png") left top no-repeat;
+        cursor: pointer;
+        padding: 0;
+        border: 0;
+    }
+
+    .box input[type="checkbox"]:checked + label span {
+        background: url("../images/check.png") -16px top no-repeat;
+    }
+
+.box a {
+    float: right;
+    font-style: italic;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.mirror:after {
+    background: rgba(255, 255, 255, 0.4);
+    content: "";
+    height: 130px;
+    left: -115px;
+    opacity: 0.2;
+    position: absolute;
+    top: -40px;
+    transform: rotate(30deg);
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    width: 90px;
+}
+
+.mirror:hover:after {
+    left: 120%;
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mirror-child {
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto 20px;
+}
+
+form input[type="submit"] {
+    font-size: 14px;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+    background: #D32F2F;
+    border: none;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+    text-shadow: 0px 1px 1px #651D1D;
+    border-top: 1px solid #FF4E4E;
+}
+
+footer {
+    color: #858585;
+    text-align: center;
+}

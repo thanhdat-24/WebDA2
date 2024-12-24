@@ -1,0 +1,42 @@
+﻿@model WebDA2.Models.TaiKhoan
+@{
+    ViewBag.Title = "ThanhToan_ThanhCong";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style>
+    .swal2-confirm {
+        background-color: red; /* Màu nền của nút OK */
+        color: white; /* Màu chữ của nút OK */
+        border: none; /* Bỏ viền nếu có */
+    }
+
+        .swal2-confirm:hover {
+            background-color: darkred; /* Màu nền khi hover */
+        }
+</style>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Bạn đã thanh toán thành công đơn hàng!',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Trang Chủ',
+                showCancelButton: true, // Hiển thị nút quay về
+                timer: 5000 // Thời gian tự động đóng (3 giây)
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Nếu nhấn OK
+                    window.location.href = '@Url.Action("TraCuuDon", "TraCuuDon")'; // Thay đổi theo đúng hành động và controller của bạn
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Nếu nhấn nút quay về trang chủ
+                    window.location.href = '@Url.Action("TrangChu", "Home")'; // Thay đổi theo đúng hành động và controller của bạn
+                }
+            });
+        });
+    </script>
+}

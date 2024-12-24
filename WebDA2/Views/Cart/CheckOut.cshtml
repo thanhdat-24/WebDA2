@@ -1,0 +1,279 @@
+﻿@model WebDA2.Models.CustomerView
+@using WebDA2.Models;
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+<style>
+    .form-group {
+        display: flex;
+        flex-direction: column; /* Đảm bảo label nằm trên */
+        margin-bottom: 15px; /* Khoảng cách giữa các trường */
+    }
+
+    label {
+        margin-bottom: 5px; /* Khoảng cách giữa label và input/select */
+        font-weight: bold; /* Làm đậm chữ cho label (tùy chọn) */
+    }
+
+    select.form-control {
+        padding: 8px; /* Khoảng cách bên trong cho thanh chọn */
+        border: 1px solid #ccc; /* Viền thanh chọn */
+        border-radius: 4px; /* Bo tròn góc */
+    }
+
+    #load_form_payment {
+        display: none; /* Hoặc block */
+    }
+
+    .container.product_section_container {
+        background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1, h3 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        color: #333;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        color: #777;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    select {
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        width: 100%;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+    }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #28a745;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+        .btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+    .btn-block {
+        width: 100%;
+    }
+
+    #load_form_payment {
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 6px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-top: 15px;
+    }
+
+        #load_form_payment label {
+            font-size: 14px;
+            margin-left: 10px;
+            font-weight: 500;
+            color: #555;
+        }
+
+    h4, h5 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: bold;
+        color: #333;
+    }
+
+    h5 {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 20px 0;
+    }
+
+    .col-md-3 {
+        border-left: 1px solid #ddd;
+        padding-left: 20px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+</style>
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>Thanh toán</h1>
+                    <p>Bạn hãy kiểm tra lại thông tin đơn hàng cho chính xác!</p>
+
+                    <!-- Kiểm tra và hiển thị thông báo lỗi từ TempData -->
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+                </div>
+            </div>
+            <hr />
+            @if (ViewBag.CheckCart != null)
+            {
+                <div class="row">
+                    <div class="col-md-9">
+                        <form action="/Cart/CheckOut" method="post" id="myForm">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <h3>Thông tin khách hàng</h3>
+
+                            <div class="form-group">
+                                <label>Tên người nhận</label>
+                                <input type="text" name="CustomerName" required class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label>Số điện thoại</label>
+                                <input type="text" name="Phone" required class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label>Địa chỉ</label>
+                                <input type="text" name="Address" required class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" name="Email" required class="form-control" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label>Chi nhánh</label>
+                                @{
+                                    var chinhanh = db.ChiNhanhs.ToList();
+                                    <select class="form-control" name="chinhanh">
+                                        @foreach (var item in chinhanh)
+                                        {
+                                            <option value="@item.ID_CN">@item.Ten_CN</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label>Hình thức thanh toán</label>
+                                <select class="form-control" name="TypePayment" id="drTypePayment">
+                                    <option value="1" selected>COD</option>
+                                    <option value="2">Chuyển khoản</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="load_form_payment">
+                                <h4><label>Chọn phương thức thanh toán:</label></h4>
+                                <h5>Cách 1: Chuyển hướng sang VNPAY chọn phương thức thanh toán</h5>
+                                <label><input type="radio" name="TypePaymentVN" value="0" checked /> Cổng thanh toán VNPAYQR</label>
+                                <h5>Cách 2: Tách phương thức thanh toán tại site của Merchant</h5>
+                                <label><input type="radio" name="TypePaymentVN" value="1" /> Thanh toán qua ứng dụng hỗ trợ VNPAYQR</label><br />
+                                <label><input type="radio" name="TypePaymentVN" value="2" /> ATM-Tài khoản ngân hàng nội địa</label><br />
+                                <label><input type="radio" name="TypePaymentVN" value="3" /> Thanh toán qua thẻ quốc tế</label><br />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-block btn-success">Đặt Hàng</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        @Html.Action("Partial_Item_ThanhToan", "Cart")
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>Bạn chưa có sản phẩm nào. Vui lòng quay lại trang <a href="/sanpham/sanpham">sản phẩm</a>.</div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('change', '#drTypePayment', function () {
+                var type = $(this).val();
+                console.log(type);
+                $('#load_form_payment').hide();
+                if (type == "2") {
+                    $('#load_form_payment').show();
+                }
+            });
+        });
+        // Không cần JavaScript kiểm tra thủ công nữa nếu sử dụng jQuery Validation
+        $(document).ready(function () {
+            $("#myForm").validate({
+                rules: {
+                    'CustomerName': { required: true },
+                    'Phone': { required: true },
+                    'Address': { required: true },
+                    'Email': { required: true, email: true }
+                },
+                messages: {
+                    'CustomerName': 'Vui lòng nhập họ tên khách hàng.',
+                    'Phone': 'Vui lòng nhập số điện thoại.',
+                    'Address': 'Vui lòng nhập địa chỉ.',
+                    'Email': 'Vui lòng nhập email.'
+                }
+            });
+        });
+    </script>
+}

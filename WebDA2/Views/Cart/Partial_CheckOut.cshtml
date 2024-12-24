@@ -1,0 +1,62 @@
+﻿@model WebDA2.Models.CustomerView
+<form action="/Cart/CheckOut" method="post">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h3>Thông tin khách hàng</h3>
+    <div class="form-group">
+        <label>Họ tên khách hàng</label>
+        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Số điện thoại</label>
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Địa chỉ</label>
+        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <!--<div class="form-group">
+        <label>Họ tên khách hàng</label>-->
+    @*<input type="text" name="TenKH" class="form-control" autocomplete="off" />*@
+    <!--<input type="text" name="CustomerName" class="form-control" autocomplete="off" />
+        @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Số điện thoại</label>-->
+    @*<input type="text" name="TenKH" class="form-control" autocomplete="off" />*@
+    <!--<input type="text" name="Phone" class="form-control" autocomplete="off" />
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Địa chỉ</label>-->
+    @*<input type="text" name="TenKH" class="form-control" autocomplete="off" />*@
+    <!--<input type="text" name="Address" class="form-control" autocomplete="off" />
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label>Email</label>-->
+    @*<input type="text" name="TenKH" class="form-control" autocomplete="off" />*@
+    <!--<input type="text" name="Email" class="form-control" autocomplete="off" />
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>-->
+    <div class="form-group">
+        <label>Hình thức thanh toán</label>
+        <select class="form-control" name="Payment">
+            <option value="1" selected>COD</option>
+            <option value="2">Chuyển khoản</option>
+        </select>
+
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-block btn-success">Đặt Hàng</button>
+    </div>
+</form>

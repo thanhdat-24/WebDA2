@@ -1,0 +1,182 @@
+﻿@model IEnumerable<WebDA2.Models.DonhangViewModel>
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    var customer = ViewBag.Customer;
+}
+<style>
+    .search-bar {
+    margin: 15px 0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.search-bar input[type="text"] {
+    width: 300px;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    background-color: #e30119;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #3e8e41;
+}
+
+    .container_dh {
+        width: 60%;
+        margin: 20px auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .title {
+        text-align: center;
+        color: #333;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .infor_customer, .infor_bill {
+        margin-bottom: 20px;
+    }
+
+        .infor_customer h3, .infor_bill h3 {
+            color: #555;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .infor_customer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .infor_customer ul li {
+                font-size: 16px;
+                margin-bottom: 8px;
+                color: #333;
+            }
+
+                .infor_customer ul li strong {
+                    color: #555;
+                }
+
+        .infor_bill table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .infor_bill thead {
+            background-color: #e30119;
+            color: white;
+        }
+
+            .infor_bill thead th {
+                text-align: left;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+        .infor_bill tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            .infor_bill tbody tr:hover {
+                background-color: #f9f9f9;
+            }
+
+        .infor_bill tbody td {
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+            .infor_bill tbody td a {
+                color: #4CAF50;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .infor_bill tbody td a:hover {
+                    text-decoration: underline;
+                    color: #3e8e41;
+                }
+
+    /* Căn chỉnh khoảng cách cho toàn bộ nội dung */
+    .container_dh * {
+        box-sizing: border-box;
+    }
+</style>
+<div class="container_dh">
+    <h2 class="title">Danh sách đơn hàng</h2>
+    <div class="infor_customer">
+        <h3>Thông tin khách hàng:</h3>
+        <ul>
+            <li><strong>Tên:</strong> @customer.TenKH</li>
+            <li><strong>SĐT:</strong> @customer.SDT</li>
+        </ul>
+    </div>
+
+    <!-- Form tìm kiếm -->
+    <div class="search-bar">
+        <form action="@Url.Action("DonHang", "TraCuuDon")" method="get">
+            <input type="hidden" name="id_kh" value="@customer.ID_KhachHang" />
+            <input type="text" name="search" placeholder="Tìm kiếm theo tên hóa đơn..." value="@Request.QueryString["search"]" />
+            <button type="submit">Tìm Kiếm</button>
+        </form>
+    </div>
+
+    <div class="infor_bill">
+        <h3>Danh sách đơn hàng:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên đơn hàng</th>
+                    <th>Ngày Đặt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                <tr>
+                    <td>@order.ID_DonHang</td>
+                    <td>
+                        <a href="@Url.Action("ChiTietDonHang", "TraCuuDon", new { id_donhang = order.ID_DonHang })">
+                            @order.TenDonHang
+                        </a>
+                    </td>
+                    <td>
+                        <tb>@order.NgayDat</tb>
+                    </td>
+                   
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

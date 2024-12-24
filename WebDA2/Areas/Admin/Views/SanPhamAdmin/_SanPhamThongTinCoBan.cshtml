@@ -1,0 +1,80 @@
+﻿@model WebDA2.Models.SanPham
+@using WebDA2.Models
+<style>
+    .color_style{
+        color:red;
+        font-size:14px;
+    }
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading" style="color:Highlight">
+        <span class="glyphicon glyphicon-info-sign" aria-hidden="true">&nbsp;</span>Thông tin cơ bản sản phẩm
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.Label("Tên Sản Phẩm", htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập Tên Sản Phẩm" } })
+            @Html.ValidationMessageFor(model => model.TenSanPham, "*Tên sản phẩm không được trùng!", new { @class = "text-danger" })
+        </div>
+        <!-- Thêm input cho việc upload ảnh -->
+        <div class="form-group">
+            @Html.Label("Ảnh Sản Phẩm", htmlAttributes: new { @class = "color_style" })
+            <input type="file" name="FileAnh" class="form-control" />
+            @Html.ValidationMessageFor(model => model.Anh, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnhOnl, htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.AnhOnl, new { htmlAttributes = new { @class = "form-control", placeholder = "Url Ảnh" } })
+            @Html.ValidationMessageFor(model => model.AnhOnl, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Size, htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.Size, new { htmlAttributes = new { @class = "form-control", placeholder = "Size" } })
+        </div>
+        <div class="form-group">
+            @Html.Label("Xuất Xứ", htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.ThongTinSanPham, new { htmlAttributes = new { @class = "form-control", placeholder = "Quốc gia sản xuất" } })
+        </div>
+        <div class="form-group">
+            @Html.Label("Màu Sản Phẩm", htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.MauSac, new { htmlAttributes = new { @class = "form-control", placeholder = "Màu Sắc" } })
+        </div>
+        <div class="form-group">
+            @Html.Label("Bảo Hành", htmlAttributes: new { @class = "color_style" })
+            @Html.DropDownList("BaoHanh", new SelectList(new[]
+            {
+                new {Value ="0",Text = "Không bảo hành"},
+                new {Value ="3",Text = "3 Tháng"},
+                new {Value ="6",Text = "6 Tháng"},
+                new {Value ="12",Text = "12 Tháng"},
+                new {Value ="24",Text = "24 Tháng"},
+                new {Value ="36",Text = "36 Tháng"}
+                }, "Value","Text"),"Chọn thời gian bảo hành", new {@class ="form-control"  })
+        </div>
+        <div class="form-group">
+            @Html.Label("Sản Phẩm Hot", htmlAttributes: new { @class = "color_style" })
+            @Html.EditorFor(model => model.Hot, new { htmlAttributes = new { @class = "form-control", placeholder = "Sản Phẩm Nổi Bật" } })
+        </div>
+
+        <!-- Dropdown cho Loại Sản Phẩm -->
+        <div class="form-group">
+            @Html.Label("Loại Sản Phẩm")
+            @Html.DropDownListFor(model => model.id_loaisp,
+                new SelectList(ViewBag.LoaiSanPhamList, "IDLoaiSP", "TenLoaiSP"),
+                "-- Chọn Loại Sản Phẩm --",
+                new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.id_loaisp, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Dropdown cho Hãng Sản Xuất -->
+        <div class="form-group">
+            @Html.Label("Hãng Sản Xuất")
+            @Html.DropDownListFor(model => model.id_hangsx,
+                new SelectList(ViewBag.HangSXList, "IDHangSX", "TenHangSX"),
+                "-- Chọn Hãng Sản Xuất --",
+                new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.id_hangsx, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

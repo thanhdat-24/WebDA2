@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "ChiTietDonHang";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="table-container">
+    <h2>Chi Tiết Đơn Hàng</h2>
+    <div class="container_inf">
+        <div class="customer-info">
+            <h3>Thông Tin Khách Hàng:</h3>
+            <ul>
+                <li><strong>Tên:</strong> @Model.KhachHang.TenKH</li>
+                <li><strong>SĐT:</strong> @Model.KhachHang.SDT</li>
+                <li><strong>Email đặt hàng:</strong> @Model.DonHang.EmailDH</li>
+                <li><strong>Đại chỉ nhận hàng:</strong> @Model.DonHang.DiaChiNhanHang</li>
+            </ul>
+        </div>
+        <div class="order-info">
+            <h3>Thông Tin Đơn Hàng:</h3>
+            <ul>
+                <li><strong>Mã đơn hàng:</strong> @Model.DonHang.ID_DonHang</li>
+                <li><strong>Tên đơn hàng:</strong> @Model.DonHang.TenDonHang</li>
+                <li><strong>Ngày đặt:</strong> @Model.DonHang.NgayDat</li>
+                <li><strong>Tổng số lượng:</strong> @Model.DonHang.TongSL</li>
+                <li><strong>Chi nhánh:</strong> @Model.DonHang.Branch</li>
+            </ul>
+        </div>
+    </div>
+    <div class="tb_dh">
+        <h3>Sản Phẩm Đã Mua:</h3>
+        <table class="table_detail">
+            <thead class="name_tb">
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Giá khuyến mãi</th>
+                    <th>Số lượng</th>
+                    <th>Tổng giá</th>
+                </tr>
+            </thead>
+            <tbody class="content_tb">
+                @foreach (var sp in Model.SanPhamDaMua)
+                {
+                    <tr>
+                        <td><img src="@sp.SanPham.Anh" alt="@sp.SanPham.TenSanPham" width="100" /></td>
+                        <td><a href="@Url.Action("SanPham_ChiTiet", "SanPham", new { id = sp.SanPham.IDSanPham })"> @sp.SanPham.TenSanPham</a></td>
+                        <td>@string.Format("{0:0#,0}", sp.SanPham.Gia) đ</td>
+                        <td>@string.Format("{0:0#,0}", sp.SanPham.GiaKhuyenMai) đ</td>
+                        <td>@sp.SoLuong</td>
+                        <td>
+                            @String.Format("{0:0#,0}",
+                                (sp.SanPham.GiaKhuyenMai > 0
+                                    ? sp.SanPham.GiaKhuyenMai * sp.SoLuong
+                                    : sp.SanPham.Gia * sp.SoLuong)) đ
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<style>
+    /* Đặt khung chính */
+    .table-container {
+        width: 60%;
+        margin: 20px auto; /* Canh giữa */
+        background-color: #fff; /* Nền trắng */
+        padding: 25px;
+        border-radius: 10px; /* Bo góc */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    }
+
+        /* Tiêu đề chính */
+        .table-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+    /* Container chứa thông tin khách hàng và đơn hàng */
+    .container_inf {
+        display: flex; /* Đặt thông tin khách hàng và đơn hàng nằm ngang */
+        gap: 20px; /* Khoảng cách giữa các div */
+        margin-bottom: 20px; /* Tách biệt với bảng */
+    }
+
+    .customer-info, .order-info {
+        flex: 1; /* Chiều rộng bằng nhau */
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px; /* Bo góc nhẹ */
+        background-color: #f9f9f9; /* Màu nền nhạt */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .customer-info h3, .order-info h3 {
+            color: #444; /* Màu tiêu đề nhạt hơn */
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .customer-info ul, .order-info ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .customer-info li, .order-info li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+            .customer-info li strong, .order-info li strong {
+                color: #000; /* Nhấn mạnh phần chữ đậm */
+            }
+
+    /* Bảng chi tiết đơn hàng */
+    .tb_dh h3 {
+        font-size: 22px;
+        color: #444;
+        margin-bottom: 10px;
+    }
+
+    /* Bảng chính */
+    .table_detail {
+        width: 100%;
+        border-collapse: collapse; /* Xóa khoảng cách giữa các ô */
+        margin-top: 10px;
+        font-size: 16px;
+        background-color: white;
+        border: 1px solid #ddd;
+    }
+
+    .name_tb th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .content_tb td {
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        color: #333;
+    }
+        .content_tb td img {
+            width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+    /* Màu nền luân phiên cho các dòng */
+    .content_tb tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .content_tb tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Tổng giá nổi bật */
+    .content_tb td:last-child {
+        color: #D32F2F; /* Màu đỏ cho tổng giá */
+        font-weight: bold;
+    }
+
+    /* Hiệu ứng khi nhấn */
+    .content_tb tr:active {
+        background-color: #ddd;
+    }
+
+</style>

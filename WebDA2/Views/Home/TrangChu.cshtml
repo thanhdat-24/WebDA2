@@ -1,0 +1,152 @@
+﻿@model IEnumerable<WebDA2.Models.SanPham>
+@using WebDA2.Models;
+@{
+    ViewBag.Title = "TrangChu";
+
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+@section Slider{
+    <!-- Slider Hero Items -->
+    <div class="owl-carousel hero__slider mt-2">
+        <div class="hero__item set-bg" data-setbg="https://file.hstatic.net/200000722513/file/thang_11_web_slider_800x400_laptop_gaming.png">
+            <div class="hero__text mt-4">
+                <a href="#" class="primary-btn mt">SHOP NOW</a>
+            </div>
+        </div>
+        <div class="hero__item set-bg" data-setbg="https://file.hstatic.net/200000722513/file/pc_gvn_t10_web_slider_800x400.png">
+            <div class="hero__text mt-4">
+                <a href="#" class="primary-btn mt">SHOP NOW</a>
+            </div>
+        </div>
+        <div class="hero__item set-bg" data-setbg="https://file.hstatic.net/200000722513/file/uu_dai_soc_banner_web_slider_800x400.png">
+            <div class="hero__text">
+
+
+                <a href="#" class="primary-btn">SHOP NOW</a>
+            </div>
+        </div>
+        <div class="hero__item set-bg" data-setbg="https://file.hstatic.net/200000722513/file/t10_thu_cu_doi_moi_web_slider_800x400.png">
+            <div class="hero__text">
+
+                <a href="#" class="primary-btn">SHOP NOW</a>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories__slider owl-carousel">
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg" data-setbg="" style="width:210px; height:300px">
+                        <img src="https://product.hstatic.net/200000722513/product/1411vn-2_0de912de79104f1183b0284cbacab24e_medium.png" />
+                        <h5><a href="#">LapTop Văn Phòng</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg" data-setbg="" style="width:210px; height:300px">
+                        <img src=" https://product.hstatic.net/200000722513/product/acer-nitro-5-an515-46-r6qr_76527b5f7ffc4b1ba85be70a47091c25_1024x1024_8a2f0281efa040adb268338bcae8933c_medium.png" />
+                        <h5><a href="#">LapTop Văn Phòng</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg" data-setbg="" style="width:210px; height:300px">
+                        <img src=" https://product.hstatic.net/200000722513/product/ava_30648cdc44594d1fa28c97cecf22aa6b_medium.png" />
+                        <h5><a href="#">LapTop Văn Phòng</a></h5>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="categories__item set-bg" data-setbg="" style="width:210px; height:300px">
+                        <img src=" https://product.hstatic.net/200000722513/product/thumb_i7_msi_e8ebf152f4c448de8c39a8fc49aa31d7_medium.png" />
+                        <h5><a href="#">LapTop Văn Phòng</a></h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Sản phẩm nổi bật</h2>
+                </div>
+                <div class="featured__controls">
+                    <ul>
+                        <li class="active" data-filter="*">Tất Cả</li>
+                        @foreach (var loai in ViewBag.LoaiSanPhams)
+                        {
+                            // Thay thế khoảng trắng và ký tự đặc biệt bằng dấu gạch dưới
+                            var filterClass = loai.TenLoaiSP.Replace(" ", "_").ToLower(); // chuyển tất cả thành chữ thường và thay khoảng trắng bằng dấu _
+                            <li data-filter=".@filterClass">@loai.TenLoaiSP</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter" id="MixItUp29C75A">
+            @foreach (var item in Model)
+            {
+                var loaiSanPham = item.LoaiSanPham.TenLoaiSP.Replace(" ", "_").ToLower(); // Thay thế khoảng trắng và ký tự đặc biệt
+            <div class="col-lg-3 col-md-4 col-sm-6 mix @loaiSanPham">
+                <a href="@Url.Action("SanPham_ChiTiet", "SanPham", new { id = item.IDSanPham })" class="product-card-link">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="@item.AnhOnl" style="height: 250px; width: 200px;">
+                        </div>
+                        <div class="featured__item__text">
+                            <h6>
+                                <span style="font-weight:bold;" href="#">@item.TenSanPham</span>
+                            </h6>
+                            <h5>
+                                <span class="table-warning">
+                                    @string.Format("{0:0#,0}", item.Gia) đ
+                                </span>
+                                <div class="price-row">
+                                    <span class="text-danger">
+                                        @string.Format("{0:0#,0}", item.GiaKhuyenMai) đ
+                                    </span>
+                                    <span class="product_sale">
+                                        @item.PhanTramDaGiam%
+                                    </span>
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                </a>
+                   
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <a href="~/SanPham/SanPham">
+                        <img src="https://file.hstatic.net/200000722513/file/thang_10_layout_web__1015x325.png" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="banner__pic">
+                    <img src="https://file.hstatic.net/200000722513/file/thang_10_layout_web__1015x325_copy_70b06fed9aa746cc86cc92f7baaa06b9.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,121 @@
+﻿@model IEnumerable<WebDA2.Models.DonHang>
+@{
+    ViewBag.Title = "DanhSachDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .table thead th {
+        text-align: center; /* Căn giữa nội dung */
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .input-container .form-control {
+            flex: 1;
+        }
+
+        .input-container .btn {
+            flex-shrink: 0; /* Đảm bảo nút không co lại */
+        }
+</style>
+
+<h1><span class="glyphicon glyphicon-user addtop" aria-hidden="true"></span>&nbsp;&nbsp;Danh Sách Đơn Hàng</h1>
+<ol class="breadcrumb">
+    <li>Hệ thống</li>
+    <li class="active">Quản lý đơn hàng</li>
+</ol>
+<div class="row space-top">
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5">
+        <div class="input-group text-right">
+            @using (Html.BeginForm("DanhSachDonHang", "HoaDonAdmin", FormMethod.Get))
+            {
+                <div class="input-container">
+                    <!-- Ô nhập số điện thoại cần tìm -->
+                    <input type="text" name="search" class="form-control" placeholder="Nhập SDT cần tìm" value="@Request.QueryString["search"]" />
+
+                    <!-- Dropdown lọc theo chi nhánh -->
+                    <select name="chiNhanhId" class="form-control">
+                        <option value="0">Tất cả chi nhánh</option>
+                        @foreach (var cn in ViewBag.ChiNhanhList)
+                        {
+                            <option value="@cn.ID_CN" @(Request.QueryString["chiNhanhId"] == cn.ID_CN.ToString() ? "selected" : "")>
+                                @cn.Ten_CN
+                            </option>
+                        }
+                    </select>
+
+                    <!-- Nút tìm kiếm và lọc -->
+                    <button class="btn btn-danger" type="submit">Tìm kiếm</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Tổng Số Lượng Tài Khoản -->
+<div class="row space-top text-center">
+    <div class="col-xs-12">
+        <div class="highlight-info">
+            Tổng Số Lượng Hóa Đơn: @Model.Count()
+        </div>
+    </div>
+</div>
+
+<div class="row margin5" style="margin-top:10px;">
+    <div class="table-responsive quantri">
+        <table class="table table-striped table-bordered">
+            <thead style="color:white;font-size:18px;">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên đơn hàng</th>
+                    <th>ID khách hàng</th>
+                    <th>ID chi nhánh</th>
+                    <th>SDT</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày đặt</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr style="font-size:18px;font-weight:bold;color:red">
+                        <td>@Html.DisplayFor(modelItem => item.ID_DonHang)</td>
+                        <td>@Html.DisplayFor(model => item.TenDonHang)</td>
+                        <td>@Html.DisplayFor(model => item.id_khachhang)</td>
+                        <td>@Html.DisplayFor(modelItem => item.id_chinhanh)</td>
+                        <td>@Html.DisplayFor(modelItem => item.SDT)</td>
+                        @if (item.TrangThai == 1 || !item.TrangThai.HasValue)
+                        {
+                            <td>Chưa thanh toán</td>
+                        }
+                        else
+                        {
+                            <td>Đã thanh toán</td>
+                        }
+
+                        <td>@Html.DisplayFor(modelItem => item.NgayDat)</td>
+                        <td>
+                            <a href="@Url.Action("CapNhatChiTietHoaDon", "HoaDonAdmin", new { id = item.ID_DonHang })">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            &nbsp;|&nbsp;
+                            <a href="@Url.Action("XoaHoaDon", "HoaDonAdmin", new { id = item.ID_DonHang })"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            &nbsp;|&nbsp;
+                            <a href="@Url.Action("ChiTietDonHang", "HoaDonAdmin", new { id_donhang = item.ID_DonHang })">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

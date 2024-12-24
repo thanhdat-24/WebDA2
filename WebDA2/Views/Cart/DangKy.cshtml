@@ -1,0 +1,106 @@
+﻿@using WebDA2.Models
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+<h2 class="tracuu">Đăng ký thông tin</h2>
+<form asp-action="DangKy" asp-controller="Cart" method="post" class="form-class">
+    @Html.AntiForgeryToken()
+    <div>
+        <label class="lb_ten" for="CustomerName">Nhập Tên</label>
+        <input class="ip_ten" type="text" id="CustomerName" name="TenKH" required />
+    </div>
+    <div>
+        <label class="lb_sdt" for="phoneNumber">Nhập số điện thoại:</label>
+        <input class="ip_sdt" type="text" id="phoneNumber" name="SDT" required />
+    </div>
+    <div class="form-group">
+        <label>Chi nhánh</label>
+        @if (db.ChiNhanhs.Any())
+        {
+            var chinhanh = db.ChiNhanhs.ToList();
+            <select class="form-control" name="id_chinhanh">
+                @foreach (var item in chinhanh)
+                {
+                    <option value="@item.ID_CN">@item.Ten_CN</option>
+                }
+            </select>
+        }
+        else
+        {
+            <p>Không có chi nhánh để chọn.</p>
+        }
+    </div>
+    <button class="btn_submit" type="submit">Đăng ký</button>
+</form>
+@if (ViewBag.Message != null)
+{
+    <div>@ViewBag.Message</div>
+}
+<style>
+    /* Tiêu đề Tra cứu */
+    .tracuu {
+        text-align: center;
+        color: #333;
+        font-size: 32px;
+        margin-top: 30px;
+    }
+
+    /* Form tra cứu */
+    .form-class {
+        width: 50%;
+        margin: 30px auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Label nhập số điện thoại */
+    .lb_sdt, .lb_ten {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Input số điện thoại */
+    .ip_sdt, .ip_ten {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+        .ip_sdt:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+    /* Nút Tra cứu */
+    .btn_submit {
+        background-color: #e30119;
+        color: white;
+        font-size: 18px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        .btn_submit:hover {
+            background-color: #45a049;
+        }
+    /* Thông báo lỗi */
+    .form_tracuu .erros {
+        color: red;
+        font-size: 16px;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>

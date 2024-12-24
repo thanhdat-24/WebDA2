@@ -1,0 +1,69 @@
+﻿@model WebDA2.Models.SanPham
+<style></style>
+<div class="panel panel-default">
+    <div class="panel-heading" style="color:Highlight;">
+        <span class="glyphicon glyphicon-usd" aria-hidden="true">&nbsp;</span>Giá sản phẩm
+    </div>
+    <div class="panel-body">
+        <!-- Trường nhập "Giá Vốn" -->
+        <div class="form-group">
+            @Html.Label("Giá Vốn")
+            <div class="input-group">
+                @Html.EditorFor(model => model.GiaVon, new { htmlAttributes = new { @class = "form-control currency-input", placeholder = "Nhập giá vốn" } })
+                <div class="input-group-addon">vnđ</div> <!-- Thêm đơn vị tiền tệ vào sau giá trị -->
+
+            </div>
+        </div>
+
+        <!-- Trường nhập "Giá Góc" -->
+        <div class="form-group">
+            @Html.Label("Giá Góc")
+            <div class="input-group">
+                @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control currency-input", placeholder = "Nhập giá góc" } })
+                <div class="input-group-addon">vnđ</div>
+            </div>
+            @Html.ValidationMessageFor(model => model.GiaVon, "*Phải lớn hơn giá vốn", new { @class = "text-danger" })
+        </div>
+
+        <!-- Trường nhập "Giá Khuyến Mãi" -->
+        <div class="form-group">
+            @Html.Label("Giá Khuyến Mãi")
+            <div class="input-group">
+                @Html.EditorFor(model => model.GiaKhuyenMai, new { htmlAttributes = new { @class = "form-control currency-input", placeholder = "Nhập giá khuyến mãi" } })
+                <div class="input-group-addon">vnđ</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@model WebDA2.Models.SanPham
+<style></style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-usd" aria-hidden="true">&nbsp;</span>Giá sản phẩm
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.Label("Giá Vốn")
+            <div class="input-group">
+                @Html.EditorFor(model => model.GiaVon, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="input-group-addon">vnđ</div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Giá Góc")
+            <div class="input-group">
+                @Html.EditorFor(model => model.Gia, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="input-group-addon">vnđ</div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Giá Khuyến Mãi")
+            <div class="input-group">
+                @Html.EditorFor(model => model.GiaKhuyenMai, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="input-group-addon">vnđ</div>
+            </div>
+        </div>
+    </div>
+</div>*@

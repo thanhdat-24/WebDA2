@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f8ed53ed06f44b81978ad520885edb0c" Name="Diagram1">
+        <EntityTypeShape EntityType="CuaHangITModel.ChiNhanh" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.ChiTietDonHang" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.ChiTietKhoHang" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.ChucVu" Width="1.5" PointX="5.75" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.DonHang" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.HangSX" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.KhachHang" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.KhoHang" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.LoaiSanPham" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSdynamicsnapshotview" Width="1.5" PointX="7.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_dynamic_snapshots" Width="1.5" PointX="12" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_partition_groups" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.NhanVien" Width="1.5" PointX="8" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.SanPham" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysreplserver" Width="1.5" PointX="9.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.TaiKhoan" Width="1.5" PointX="5.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.ThongTinChiTietSP" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSdynamicsnapshotjob" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_agent_parameters" Width="1.5" PointX="11.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_altsyncpartners" Width="1.5" PointX="10.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_articlehistory" Width="1.5" PointX="12.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_ChiNhanh" Width="1.5" PointX="7.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_ChiTietDonHang" Width="1.5" PointX="12.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_ChiTietKhoHang" Width="1.5" PointX="13.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_ChucVu" Width="1.5" PointX="14.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_DonHang" Width="1.5" PointX="14.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_HangSX" Width="1.5" PointX="9.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_KhachHang" Width="1.5" PointX="14.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_KhoHang" Width="1.5" PointX="14.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_LoaiSanPham" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_NhanVien" Width="1.5" PointX="11.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_SanPham" Width="1.5" PointX="16.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_TaiKhoan" Width="1.5" PointX="2.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN1_ThongTinChiTietSP" Width="1.5" PointX="16.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_ChiNhanh" Width="1.5" PointX="16.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_ChiTietDonHang" Width="1.5" PointX="16.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_ChiTietKhoHang" Width="1.5" PointX="7.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_ChucVu" Width="1.5" PointX="13.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_DonHang" Width="1.5" PointX="15.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_HangSX" Width="1.5" PointX="17.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_KhachHang" Width="1.5" PointX="18.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_KhoHang" Width="1.5" PointX="18.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_LoaiSanPham" Width="1.5" PointX="18.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_NhanVien" Width="1.5" PointX="18.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_SanPham" Width="1.5" PointX="9.75" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_TaiKhoan" Width="1.5" PointX="18.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflict_HTQLCuaHangIT_CN2_ThongTinChiTietSP" Width="1.5" PointX="19.75" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_conflicts_info" Width="1.5" PointX="20.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_contents" Width="1.5" PointX="0.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_current_partition_mappings" Width="1.5" PointX="2.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_errorlineage" Width="1.5" PointX="20.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_generation_partition_mappings" Width="1.5" PointX="20.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_genhistory" Width="1.5" PointX="20.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_history" Width="1.5" PointX="11.75" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_identity_range" Width="1.5" PointX="21.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_log_files" Width="1.5" PointX="21.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_metadataaction_request" Width="1.5" PointX="22.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_past_partition_mappings" Width="1.5" PointX="22.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_replinfo" Width="1.5" PointX="22.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_sessions" Width="1.5" PointX="13.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_settingshistory" Width="1.5" PointX="22.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_supportability_settings" Width="1.5" PointX="15.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSmerge_tombstone" Width="1.5" PointX="17.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.MSrepl_errors" Width="1.5" PointX="19.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergearticle" Width="1.5" PointX="21.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergepartitioninfo" Width="1.5" PointX="2.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergepublication" Width="1.5" PointX="4.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergeschemaarticle" Width="1.5" PointX="6.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergeschemachange" Width="1.5" PointX="23.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergesubscription" Width="1.5" PointX="23.75" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="CuaHangITModel.sysmergesubsetfilter" Width="1.5" PointX="24.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="CuaHangITModel.FK__NhanVien__id_chi__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_DonHang_ChiNhanh" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_KhachHang_ChiNhanh" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_KhoHang_ChiNhanh" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_ChiTietDonHang_ChiTietKhoHang" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_ChiTietDonHang_DonHang" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_ChiTietKhoHang_KhoHang" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_ChiTietKhoHang_SanPham" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_NhanVien_ChucVu" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_DonHang_KhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK__SanPham__id_hang__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK__SanPham__id_loai__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK__MSmerge_d__parti__70436964" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK__NhanVien__id_tai__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="CuaHangITModel.FK_ThongTinChiTietSP_SanPham" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

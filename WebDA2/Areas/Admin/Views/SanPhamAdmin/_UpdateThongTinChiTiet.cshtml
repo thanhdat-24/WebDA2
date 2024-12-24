@@ -1,0 +1,53 @@
+﻿@model WebDA2.Models.SanPham
+
+@{
+    // Kiểm tra và lấy dữ liệu chi tiết sản phẩm từ ViewBag
+    var thongTinChiTiet = ViewBag.ThongTinChiTiet as WebDA2.Models.ThongTinChiTietSP;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true">&nbsp;</span>Thông tin chi tiết sản phẩm
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.Label("CPU")
+            @Html.TextBoxFor(model => thongTinChiTiet.CPU, new { @class = "form-control", placeholder = "CPU", name = "Cpu" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Main")
+            @Html.TextBoxFor(model => thongTinChiTiet.Main, new { @class = "form-control", placeholder = "Main", name = "Main" })
+        </div>
+        <div class="form-group">
+            @Html.Label("RAM")
+            @Html.DropDownList("thongTinChiTiet.RAM",
+                new SelectList(
+                    new List<string> { "4GB", "8GB", "16GB", "32GB" },
+                    thongTinChiTiet != null ? thongTinChiTiet.RAM : null
+                ),
+                "Chọn RAM",
+                new { @class = "form-control" }
+            )
+        </div>
+        <div class="form-group">
+            @Html.Label("Ổ Cứng")
+            @Html.TextBoxFor(model => thongTinChiTiet.OCUNG, new { @class = "form-control", placeholder = "Ổ Cứng" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Card Đồ Họa")
+            @Html.TextBoxFor(model => thongTinChiTiet.CARD, new { @class = "form-control", placeholder = "Card Đồ Họa" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Màn Hình")
+            @Html.TextBoxFor(model => thongTinChiTiet.MANHINH, new { @class = "form-control", placeholder = "Màn Hình" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Hệ Điều Hành")
+            @Html.TextBoxFor(model => thongTinChiTiet.HEDIEUHANH, new { @class = "form-control", placeholder = "Hệ Điều Hành" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Pin")
+            @Html.TextBoxFor(model => thongTinChiTiet.PIN, new { @class = "form-control", placeholder = "Pin" })
+        </div>
+    </div>
+</div>

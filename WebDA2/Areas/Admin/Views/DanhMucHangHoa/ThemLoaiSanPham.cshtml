@@ -1,0 +1,30 @@
+﻿@model WebDA2.Models.LoaiSanPham
+
+@{
+    ViewBag.Title = "Thêm Loại Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm Loại Sản Phẩm</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="TenLoaiSP">Tên Loại Sản Phẩm</label>
+        @Html.TextBoxFor(m => m.TenLoaiSP, new { @class = "form-control", placeholder = "Nhập tên loại sản phẩm" })
+        @Html.ValidationMessageFor(m => m.TenLoaiSP, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Icon">Logo (Icon)</label>
+        @Html.TextBoxFor(m => m.Icon, new { @class = "form-control", placeholder = "Nhập logo (icon) cho loại sản phẩm" })
+        @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Thêm Loại Sản Phẩm</button>
+        <a href="@Url.Action("DanhSachLoaiSanPham", "DanhMucHangHoa")" class="btn btn-secondary">Quay lại</a>
+    </div>
+}

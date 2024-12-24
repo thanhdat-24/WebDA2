@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập Admin";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <base href="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="copyright" content="" />
+    <title>Quản trị hệ thống</title>
+    <link href="/Areas/Admin/css/layout_login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Zeptain">
+        <h2>Đăng nhập Admin</h2>
+        @using (Html.BeginForm("DangNhapAdmin", "DangNhapAdmin", FormMethod.Post))
+        {
+            <!-- Thêm phần hiển thị lỗi -->
+            if (!string.IsNullOrEmpty(ViewBag.Error))
+            {
+                <div class="alert alert-danger" style="color: red; font-weight: bold; margin-bottom: 15px;">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <span><img src="~/Areas/Admin/images/user.png" alt="user icon" /></span>
+            <input type="text" name="username" placeholder="Tài khoản" required /><br />
+            <span><img src="~/Areas/Admin/images/lock.png" alt="lock icon" /></span>
+            <input type="password" name="password" placeholder="Mật khẩu" required /><br />
+            <div class="mirror mirror-child">
+                <input type="submit" name="submit" value="Đăng nhập" />
+            </div>
+            <div class="box">
+                <input type="checkbox" id="remember" />
+                <label for="remember"><span></span>Ghi nhớ</label>
+                <a href="~/Home">Về trang chủ</a>
+            </div>
+        }
+    </div>
+</body>
+</html>

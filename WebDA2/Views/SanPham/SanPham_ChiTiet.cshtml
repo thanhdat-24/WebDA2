@@ -1,0 +1,483 @@
+﻿@model WebDA2.Models.SanPhamViewModel
+@{
+    ViewBag.Title = "SanPham_ChiTiet";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style>
+.content_left, .content_right {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content_left:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+.content_right:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+}
+    /* Phần mô tả ngắn */
+.product-desc-short {
+    margin-bottom: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: black;
+}
+
+.product-desc-short p {
+    margin: 10px 0;
+    color:black;
+}
+
+.product-desc-short strong {
+    font-weight: bold;
+}
+
+.product-desc-short a {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.product-desc-short a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+.btn_cart {
+    display: flex;
+    align-items: center;
+    height:70px;
+}
+.btn_cart .primary-btn {
+    display: block;
+    text-align: center;
+    padding: 5px 15px; /* Khoảng cách bên trong nút */
+    border-radius: 6px; /* Bo tròn các góc */
+    margin-left: 0; /* Sát lề trái */
+}
+.btn_cart .primary-btn span {
+    display: block;
+    text-align: center;
+}
+
+
+/* Phần khuyến mãi */
+.product-discount-promo-box {
+    border: 2px solid black; /* Khung bên ngoài */
+    border-radius: 8px; /* Bo góc */
+    background-color: #f9f9f9; /* Nền xám nhạt */
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.product-discount-promo-box .box-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff0000; /* Màu đỏ*/
+    text-transform: uppercase;
+    border-bottom: 2px solid #ff0000; /* Đường gạch chân đỏ */
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.product-discount-promo-box .box-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-discount-promo-box .box-content ul li {
+    margin-bottom:4px;
+    display: flex;
+    align-items: flex-start;
+    font-weight:bolder;
+}
+
+.product-discount-promo-box .line-discount {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+}
+
+.product-discount-promo-box .line-discount span {
+    flex: 1;
+}
+
+.product-discount-promo-box .line-discount a {
+    text-decoration: underline;
+    color: #007bff;
+}
+
+.product-discount-promo-box .line-discount a:hover {
+    color: #0056b3;
+}
+/*css cho tabel thông số kỹ thuật*/
+#productTable {
+      border: 1px solid #ddd;
+      border-collapse: collapse;
+      box-sizing: border-box;
+      color: #333;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      margin-bottom: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 90%;
+      min-width: 500px;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #productTable td {
+      border: 1px solid #ddd;
+      padding: 12px 15px;
+      vertical-align: top;
+      text-align: left;
+      transition: background-color 0.3s ease;
+    }
+
+    #productTable th {
+      padding: 12px 15px;
+      background-color: #f4f4f4;
+      color: #555;
+      font-weight: bold;
+    }
+
+    #productTable tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #productTable .row-info td {
+      background-color: #f7f7f7;
+    }
+
+    #productTable td:hover {
+      background-color: #f1f1f1;
+    }
+
+    #productTable td:nth-child(1) {
+      width: 100px;
+      font-weight: bold;
+      color: #007BFF;
+    }
+
+    #productTable td:nth-child(2) {
+      width: 600px;
+    }
+
+    #productTable td:nth-child(3) {
+      width: 120px;
+      text-align: center;
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    #productTable a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    #productTable a:hover {
+      text-decoration: underline;
+    }
+/*    Css Cho Phần Đánh Giá CT Sản Phẩm*/
+.product__details__tab__desc {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product__details__tab__desc h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.product__details__tab__desc h5 {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    text-align:left;
+}
+
+/* Hiệu ứng cho hình ảnh */
+.product__details__tab__desc .img_show {
+    max-width: 350px; /* Giảm kích thước ảnh */
+    height: auto;
+    border-radius: 25%; /* Tạo hình tròn */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng phóng to và bóng đổ */
+    display: block;
+    margin: 0 auto; /* Căn giữa ảnh */
+}
+
+/* Khi nhấn vào ảnh sẽ phóng to */
+.product__details__tab__desc .img_show:active {
+    transform: scale(1.5); /* Phóng to hình ảnh */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Thêm bóng đổ khi phóng to */
+}
+
+
+
+</style>
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+                <div class="content_left col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large" src="@Model.SanPham.Anh" alt="">
+                        </div>
+                        <div class="product__details__pic__slider owl-carousel owl-loaded owl-drag">
+
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage" style="transform: translate3d(-470px, 0px, 0px); transition: 1.2s; width: 1410px;">
+                                    <div class="owl-item cloned" style="width: 97.5px; margin-right: 20px;">
+                                        <img data-imgbigurl="@Model.SanPham.Anh" src="@Model.SanPham.AnhOnl" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="owl-nav disabled">
+                                <button type="button" role="presentation" class="owl-prev">
+                                    <span aria-label="Previous">‹</span>
+                                </button>
+                                <button type="button" role="presentation" class="owl-next">
+                                    <span aria-label="Next">›</span>
+                                </button>
+                            </div>
+                            <div class="owl-dots disabled">
+                                <button role="button" class="owl-dot active">
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content_right col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>@Model.SanPham.TenSanPham</h3>
+                        <div class="product__details__rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>(18 reviews)</span>
+                        </div>
+                        <div class="product__details__price">@string.Format("{0:0#,0}", Model.SanPham.Gia) đ</div>
+                        <div class="product__details__price_sale">@string.Format("{0:0#,0}", Model.SanPham.GiaKhuyenMai) đ</div>
+
+                        <!--đã delete số lượng do lỗi css-->
+                        <div class="btn_cart">
+                            <a style="font-size:18px" href="~/Cart/AddToCart?id=@Model.SanPham.IDSanPham" class="primary-btn">
+                                <span>MUA NGAY</span> <br />
+                                <span style="font-weight: normal; text-transform: lowercase;font-size:16px">Giao tận nơi hoặc nhận tại cửa hàng</span>
+                            </a>
+                            <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        </div>
+
+
+                        <div class="product-desc-short prtab2">
+                            <p><span style="font-size:18px">✔ Bảo hành chính hãng @Model.SanPham.BaoHanh tháng.&nbsp;</span></p>
+                            <p><span style="font-size:18px">✔ Hỗ trợ đổi mới trong 7 ngày.&nbsp;</span></p>
+                            <p><span style="font-size:18px">✔ Windows bản quyền tích hợp.&nbsp;</span></p>
+                            <p><span style="font-size:18px">✔ Miễn phí giao hàng toàn quốc.</span></p>
+                            <hr>
+                            <p>
+                                <span style="font-size:18px">
+                                    <strong>
+                                        <span style="color:#ff0000">
+                                            Hỗ trợ trả góp MPOS (Thẻ tín dụng), HDSAISON
+                                        </span>&nbsp;
+                                    </strong>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="product-discount-promo-box">
+                            <div class="box-header">
+                                <h2>Khuyến mãi</h2>
+                            </div>
+                            <div class="box-content product-appdiscount">
+                                <div class="discount-promo--content">
+                                    <ul>
+                                        <li>
+                                            <div class="line-discount">
+                                                <span>Ưu đãi 50.000đ khi mua thêm túi chống sốc kèm Laptop.</span>
+                                                <a></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="line-discount">
+                                                <span>Ưu đãi 50.000đ khi mua giá treo kèm Laptop.</span>
+                                                <a></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="line-discount">
+                                                <span>Ưu đãi 50.000đ khi mua đế tản nhiệt kèm Laptop.</span>
+                                                <a></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="line-discount">
+                                                <span>Giảm ngay 100.000đ khi mua Microsoft Office kèm Laptop tại VicTorTech.</span>
+                                                <a></a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="line-discount">
+                                                <span>Ưu đãi 500.000đ khi nâng cấp RAM dành cho Laptop Gaming.</span>
+                                                <a></a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Đánh Giá Chi TIết</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Thông Số Kỹ Thuật</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Sản Phẩm Tương Tự</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                            <div class="product__details__tab__desc">
+                                <h3>Đánh Giá Chi Tiết Sản Phẩm: @Model.SanPham.TenSanPham</h3>
+                                <h5>
+                                    Để có một dàn PC Gaming chuẩn chỉnh và có một thiết kế cực đẹp PC GVN x MSI PROJECT ZERO WHITE được ưu tiên lựa chọn những linh kiện máy tính tốt nhất trong tầm giá được cung cấp bởi MSI nên cho ra trải nghiệm ấn tượng. Ngoài ra, với sự đồng bộ trong linh kiện máy tính như thế giúp cho dàn máy tính của bạn có được hỗ trợ tốt từ hiệu suất phần cứng lẫn tối ưu hóa phần mềm. Bây giờ thì cùng tìm hiểu những nét đặc trưng của PC GVN x MSI PROJECT ZERO WHITE này để xem nó đáng sở hữu như nào.
+                                </h5>
+                                <img class="img_show" src="@Model.SanPham.AnhOnl" />
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <h4>Thông Số Kỹ Thuật</h4>
+                            <div class="product__details__tab__desc">
+                                    <table id="productTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Linh Kiện</th>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Bảo Hành</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="row-info">
+                                                <td><strong>Mainboard</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.Main</strong></td>
+                                                <td>@Model.SanPham.BaoHanh Tháng</td>
+                                            </tr>
+                                            <tr class="row-info">
+                                                <td><strong>CPU</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.CPU</strong></td>
+                                                <td>@Model.SanPham.BaoHanh Tháng</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>RAM</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.RAM</strong></td>
+                                                <td>@Model.SanPham.BaoHanh Tháng</td>
+                                            </tr>
+                                            <tr class="row-info">
+                                                <td><strong>VGA</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.CARD</strong></td>
+                                                <td>@Model.SanPham.BaoHanh Tháng</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>SSD</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.OCUNG</strong></td>
+                                                <td>@Model.SanPham.BaoHanh Tháng</td>
+                                            </tr>
+                                            <tr class="row-info">
+                                                <td><strong>HDD</strong></td>
+                                                <td><strong>Tùy chọn nâng cấp</strong></td>
+                                                <td>... Tháng</td>
+                                            </tr>
+                                            <tr class="row-info">
+                                                <td><strong>Màn Hình</strong></td>
+                                                <td><strong>@Model.ThongTinChiTiet.MANHINH</strong></td>
+                                                <td>@Model.SanPham.BaoHanh</td>
+                                            </tr>
+                                            <tr class="row-info">
+                                                <td><strong>CASE</strong></td>
+                                                <td><strong>Tùy chọn nâng cấp</strong></td>
+                                                <td>... Tháng</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Tản nhiệt</strong></td>
+                                                <td><strong>Tùy chọn nâng cấp</strong></td>
+                                                <td>... Tháng</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tabs-3" role="tabpanel">
+                            <h4>Sản Phẩm Đề Xuất</h4>
+                            <div class="product__details__tab__desc">
+                                <div class="row">
+                                    @foreach (var item in Model.SanPhamTuongTu)
+                                    {
+                                        <div class="col-lg-3 col-md-4 col-sm-6">
+                                            <a href="@Url.Action("SanPham_ChiTiet", "SanPham", new { id = item.IDSanPham })" class="product-card-link">
+                                                <div class="product__item">
+                                                    <div class="product__item__pic" style="background-image:url('@item.AnhOnl');">
+                                                    </div>
+                                                    <div style="width:90%; text-align:center" class="product__item__text">
+                                                        <h6>
+                                                            <span style="font-weight:bold;">@item.TenSanPham</span>
+                                                        </h6>
+                                                        <h5>
+                                                            <span class="table-warning">
+                                                                @string.Format("{0:0#,0}", item.Gia) đ
+                                                            </span>
+                                                            <div class="price-row">
+                                                                <span class="text-danger">
+                                                                    @string.Format("{0:0#,0}", item.GiaKhuyenMai) đ
+                                                                </span>
+                                                                <span class="product_sale">
+                                                                    @item.PhanTramDaGiam%
+                                                                </span>
+                                                            </div>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

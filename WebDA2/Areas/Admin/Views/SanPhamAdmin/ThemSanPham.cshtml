@@ -1,0 +1,41 @@
+﻿@model WebDA2.Models.SanPham
+@using WebDA2.Models;
+
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+
+<h1><span class="glyphicon glyphicon-pencil addtop" aria-hidden="true"></span>&nbsp;&nbsp;Sản phẩm</h1>
+<ol class="breadcrumb">
+    <li>Hệ thống</li>
+    <li>Sản phẩm</li>
+    <li class="active">Thêm mới</li>
+</ol>
+
+@using (Html.BeginForm("ThemSanPham", "SanPhamAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row space-top">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Thông tin cơ bản của sản phẩm -->
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+            @Html.Partial("_SanPhamThongTinCoBan", Model)
+
+            <!-- Thông tin chi tiết của sản phẩm -->
+            @Html.Partial("_SanPhamThongTinChiTiet")
+
+            <!-- Giá sản phẩm -->
+            @Html.Partial("_SanPhamGia", Model)
+
+            <!-- Nút thêm sản phẩm -->
+            <div class="form-group" style="text-align:center" >
+                <div class="col-md-offset-2 col-md-10">
+                    <input style="background-color: #178854" type="submit" value="Thêm Sản Phẩm" class="btn btn-info " />
+                </div>
+            </div>
+        </div>
+    </div>
+}

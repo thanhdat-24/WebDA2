@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Xác thực OTP";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<h2>Xác thực OTP</h2>
+
+<p>Chúng tôi đã gửi một mã OTP đến số điện thoại của bạn. Vui lòng nhập mã OTP để tiếp tục.</p>
+
+@using (Html.BeginForm("VerifyOTP", "TraCuuDon", FormMethod.Post))
+{
+    <div>
+        <label for="otpCode">Mã OTP:</label>
+        <input type="text" id="otpCode" name="otpCode" required />
+    </div>
+    <button type="submit">Xác thực</button>
+}
+
+@if (ViewBag.Message != null)
+{
+    <div>@ViewBag.Message</div>
+}
+
+

@@ -1,0 +1,178 @@
+﻿@{
+    ViewBag.Title = "ThemSPVaoKho";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Thêm Sản Phẩm Vào Kho</h2>
+
+<!-- Hiển thị thông báo thành công nếu có -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+
+    <script type="text/javascript">
+        setTimeout(function () {
+            window.location.href = "@Url.Action("ChiTietKho", "KhoHangAdmin", new { id_kho = Model.ID_Kho })";
+        }, 3000);
+    </script>
+
+}
+
+<div class="form-container">
+    <form method="post" action="@Url.Action("ThemSPVaoKho", "KhoHangAdmin")">
+        <input type="hidden" name="id_kho" value="@Model.ID_Kho" />
+
+        <!-- Ô tìm kiếm sản phẩm -->
+        <div class="form-group">
+            <label for="searchSanPham">Tìm kiếm sản phẩm:</label>
+            <input type="text" id="searchSanPham" class="form-control" placeholder="Nhập tên sản phẩm..." />
+        </div>
+
+        <!-- Danh sách sản phẩm -->
+        <div class="form-group">
+            <label for="id_sanpham">Chọn sản phẩm:</label>
+            <select name="id_sanpham" class="form-control" id="id_sanpham" required>
+                <option value="">-- Chọn sản phẩm --</option>
+                @foreach (var sp in Model.SanPhamList)
+                {
+                    <option value="@sp.IDSanPham">@sp.TenSanPham</option>
+                }
+            </select>
+        </div>
+
+        <!-- Nhập số lượng -->
+        <div class="form-group">
+            <label for="soLuong">Số lượng:</label>
+            <input type="number" name="soLuong" id="soLuong" class="form-control" min="1" required />
+        </div>
+
+        <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+        <a href="@Url.Action("ChiTietKho", "KhoHangAdmin", new { id_kho = Model.ID_Kho })" class="btn btn-primary">Quay lại</a>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Sự kiện khi người dùng nhập vào ô tìm kiếm
+        $('#searchSanPham').on('keyup', function () {
+            var keyword = $(this).val();
+
+            if (keyword.length >= 2) { // Tìm kiếm khi có ít nhất 2 ký tự
+                $.ajax({
+                    url: '@Url.Action("TimKiemSanPham", "KhoHangAdmin")',
+                    type: 'GET',
+                    data: { tenSanPham: keyword },
+                    success: function (data) {
+                        // Xóa danh sách sản phẩm hiện tại
+                        $('#id_sanpham').empty();
+                        $('#id_sanpham').append('<option value="">-- Chọn sản phẩm --</option>');
+
+                        // Đổ dữ liệu tìm kiếm vào dropdown
+                        $.each(data, function (index, item) {
+                            $('#id_sanpham').append('<option value="' + item.IDSanPham + '">' + item.TenSanPham + '</option>');
+                        });
+                    }
+                });
+            } else {
+                // Reset danh sách nếu không nhập đủ ký tự
+                $('#id_sanpham').empty();
+                $('#id_sanpham').append('<option value="">-- Chọn sản phẩm --</option>');
+                @foreach (var sp in Model.SanPhamList)
+                {
+                    <text>$('#id_sanpham').append('<option value="@sp.IDSanPham">@sp.TenSanPham</option>');</text>
+                }
+            }
+        });
+    });
+</script>
+<style>
+    /* Thiết lập font và căn chỉnh chung */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        font-size: 28px;
+    }
+
+    /* Container của form */
+    .form-container {
+        width: 50%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    /* Form group */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    /* Nút bấm */
+    button {
+        padding: 10px 20px;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        margin-left: 10px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0069d9;
+    }
+
+    /* Ô tìm kiếm sản phẩm */
+    #searchSanPham {
+        border: 1px solid #6c757d;
+    }
+
+    /* Thông báo thành công */
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 4px;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+

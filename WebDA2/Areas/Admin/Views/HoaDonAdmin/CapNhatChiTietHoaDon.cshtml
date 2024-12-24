@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "CapNhatChiTietHoaDon";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div>
+    <h3>Danh sách sản phẩm trong đơn hàng</h3>
+    <form method="post" action="@Url.Action("CapNhatChiTietHoaDon")">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sp in Model.SanPhamDaMua)
+                {
+                    <tr>
+                        <td>@sp.SanPham.TenSanPham</td>
+                        <td><input type="number" name="sanPhamMoi[@Model.SanPhamDaMua.IndexOf(sp)].SoLuong" value="@sp.SoLuong" /></td>
+                        <td>@sp.SanPham.Gia</td>
+                        <td><button type="button" onclick="xoaSanPham(@sp.SanPham.IDSanPham)">Xóa</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit">Cập nhật</button>
+    </form>
+</div>
+<script>
+    function xoaSanPham(id) {
+        $.post('@Url.Action("XoaSanPhamKhoiDonHang")', { idChiTietDonHang: id }, function (result) {
+            if (result.success) {
+                location.reload();
+            }
+        });
+    }
+</script>

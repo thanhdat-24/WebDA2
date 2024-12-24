@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "ThemSP_ThanhCong";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .swal2-confirm {
+        background-color: red; /* Màu nền của nút OK */
+        color: white; /* Màu chữ của nút OK */
+        border: none; /* Bỏ viền nếu có */
+    }
+
+        .swal2-confirm:hover {
+            background-color: darkred; /* Màu nền khi hover */
+        }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Thêm sản phẩm vào kho thành công!',
+                icon: 'success',
+                showConfirmButton: false, // Ẩn nút OK
+                timer: 2000 // Thời gian tự động đóng (2 giây)
+            }).then(() => {
+                // Quay về trang trước đó
+                window.history.back();
+            });
+        });
+    </script>
+}

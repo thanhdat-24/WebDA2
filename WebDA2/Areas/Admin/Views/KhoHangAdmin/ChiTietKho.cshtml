@@ -1,0 +1,205 @@
+﻿@model WebDA2.Models.ChiTietKhoViewModel
+@{
+    ViewBag.Title = "Chi tiết kho hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    /* Thiết kế chung cho phần chi tiết kho */
+    .detail_kho {
+        background-color: #fff; /* Màu nền trắng cho phần chi tiết */
+        font-size: 16px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 1200px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+        /* Hiệu ứng hover cho khối thông tin chi tiết */
+        .detail_kho:hover {
+            transform: scale(1.02); /* Hiệu ứng phóng to khi hover */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* Tăng độ đổ bóng khi hover */
+        }
+        /* Thiết kế cho H2 */
+        .detail_kho h2 {
+            text-align: center;
+            font-size: 28px; /* Tăng kích thước chữ */
+            font-weight: bold;
+            color: #2c3e50; /* Màu chữ đậm hơn */
+            text-transform: uppercase; /* Viết hoa toàn bộ chữ */
+            margin-bottom: 20px;
+            position: relative;
+            letter-spacing: 1.5px; /* Tăng khoảng cách giữa các chữ */
+        }
+            .detail_kho h2::after {
+                content: ""; /* Thêm đường gạch dưới */
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px; /* Độ dài gạch dưới */
+                height: 4px; /* Độ dày gạch */
+                background: linear-gradient(to right, #3498db, #2ecc71); /* Hiệu ứng màu gradient */
+                border-radius: 2px;
+            }
+        /* Thiết kế cho H3 */
+        .detail_kho h3 {
+            text-align: center;
+            font-size: 22px; /* Kích thước chữ lớn hơn */
+            font-weight: bold;
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng chữ */
+            text-transform: capitalize; /* Viết hoa chữ cái đầu */
+        }
+            .detail_kho h3::after {
+                content: ""; /* Thêm đường kẻ */
+                display: block;
+                margin: 10px auto 0;
+                width: 50px; /* Chiều rộng đường */
+                height: 3px; /* Độ dày đường */
+                background-color: #e74c3c; /* Màu đỏ */
+                border-radius: 2px;
+            }
+        /* Định dạng cho các đoạn văn thông tin */
+        .detail_kho p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+    /* Định dạng bảng */
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .table th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        /* Dòng bảng hover */
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        /* Cột ảnh sản phẩm */
+        .table td img {
+            border-radius: 8px;
+            max-width: 100px;
+            height: auto;
+        }
+    /* Nút quay lại */
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #2980b9; /* Màu sắc khi hover */
+            text-decoration: none;
+        }
+    /* Liên kết chi tiết sản phẩm */
+    .glyphicon-info-sign {
+        font-size: 18px;
+        color: #0094ff;
+        transition: color 0.3s ease;
+    }
+
+        .glyphicon-info-sign:hover {
+            color: #2980b9;
+        }
+    /* Định dạng cho các liên kết trong bảng */
+    .table a {
+        color: inherit;
+        text-decoration: none;
+    }
+    /* Cải thiện khoảng cách giữa các phần tử */
+    .detail_kho div {
+        margin-bottom: 10px;
+    }
+    /* Nút thêm sản phẩm vào kho */
+    .btn-add-product {
+        background-color: #27ae60;
+        color: white;
+        font-size: 14px; /* Giảm kích thước font chữ */
+        padding: 8px 16px; /* Giảm padding */
+        border-radius: 4px; /* Bo tròn nhẹ hơn */
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+        line-height: 1.5; /* Giữ nội dung nút gọn gàng */
+    }
+        .btn-add-product:hover {
+            background-color: #2ecc71; /* Màu khi hover */
+        }
+</style>
+
+<div class="detail_kho">
+    <h2>Chi tiết kho hàng</h2>
+    <!-- Thông tin kho -->
+    <div>
+        <h4>Thông tin kho</h4>
+        <p><strong>Tên kho:</strong> @Model.KhoHang.Ten_Kho</p>
+        <p><strong>Chi nhánh:</strong> @Model.KhoHang.ChiNhanh.Ten_CN</p>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div>
+        <h3>Danh sách sản phẩm trong kho</h3>
+        <!-- Nút thêm sản phẩm vào kho -->
+        <div style="text-align:left" class="text-center">
+            <a href="@Url.Action("ThemSPVaoKho", "KhoHangAdmin", new { id_kho = Model.KhoHang.ID_Kho })" class="btn-add-product">+ Thêm sản phẩm</a>
+        </div>
+        <div class="row space-top text-center">
+            <div class="col-xs-12">
+                <div class="highlight-info">
+                    Tổng Số Lượng Sản Phẩm: @Model.ChiTietSanPham.Count()
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Mã SP</th>
+                    <th width="30%">Tên sản phẩm</th>
+                    <th width="4%">Hãng sản xuất</th>
+                    <th>Ảnh Sản Phẩm</th>
+                    <th>Loại sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody style="text-align:center">
+                @foreach (var item in Model.ChiTietSanPham)
+                {
+                    <tr>
+                        <td><span>@item.SanPham.IDSanPham</span></td>
+                        <td><span>@item.SanPham.TenSanPham</span></td>
+                        <td><span>@item.HangSX.TenHangSX</span></td>
+                        <td><img width="100" src="@item.SanPham.Anh" alt="Ảnh không tồn tại" /></td>
+                        <td><span>@item.LoaiSanPham.TenLoaiSP</span></td>
+                        <td><span>@item.SoLuong</span></td>
+                        <td><a href="@Url.Action("ChiTietSanPham", "SanPhamAdmin", new { id = item.SanPham.IDSanPham })" style="color:#0094ff" class="glyphicon glyphicon-info-sign"></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <a href="@Url.Action("TatCaKhoHang", "KhoHangAdmin")" class="btn btn-primary">Quay lại danh sách kho</a>
+</div>

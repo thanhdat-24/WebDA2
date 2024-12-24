@@ -1,0 +1,249 @@
+﻿@using WebDA2.Models;
+@{
+    var isLoggedIn = Session["idUser"] != null;
+    var userName = isLoggedIn ? Session["NameUser"].ToString() : null;
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VicTortech.Store</title>
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&amp;display=swap" rel="stylesheet">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+
+</head>
+
+<body>
+
+    <header class="header" style="background-color: #e30119">
+        <div style="background-color: #1c202c; height:50px;" class="header__top">
+            <div class="container">
+                <div style="height:100%" class="row">
+                    <img src="https://file.hstatic.net/200000722513/file/banner_top_web_-_ma_mau_-_1280x50.jpg" />
+                </div>
+            </div>
+        </div>
+        <div style="height:85px" class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="~/"><img src="~/img/Logonew_preview_rev_1.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="~/Home/TrangChu">Home</a></li>
+                            <li class="active"><a href="~/SanPham/SanPham">Sản Phẩm</a></li>
+                            <li>
+                                <a href="#">Hỗ Trợ</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="~/DichVU/DVSuaChua">Dịch vụ sửa chữa</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="@Url.Action("TraCuuDon", "TraCuuDon")">Tra Cứu Đơn</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
+                        <!-- Danh sách giỏ hàng -->
+                        <ul style="display: flex; align-items: center; margin: 0; padding: 0; list-style: none; gap: 15px;">
+                           
+                            <li>
+                                <a href="~/Cart/GioHang" style="position: relative; text-decoration: none; ">
+                                    <i class="fa fa-shopping-bag" style="font-size: 18px;"></i>
+                                    <span>2</span>
+                                </a>
+                            </li>
+                        </ul>
+                        @RenderSection("Scripts", required: false)
+                        <!-- Đăng Nhập hoặc thông tin tài khoản -->
+                        <div class="navbar" style="display: flex; align-items: center;">
+                            @if (isLoggedIn)
+                            {<!-- Nếu đã đăng nhập -->
+                                <div class="user-info" style="display: flex; align-items: center; gap: 10px;">
+                                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                                    <a href="~/TaiKhoan/ThongTinTaiKhoan">@userName</a>
+                                </div> }
+                            else
+                            { <!-- Nếu chưa đăng nhập -->
+                                <a class="sub-dropbtn" href="~/TaiKhoan/DangNhap">
+                                    Đăng Nhập
+                                </a>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal mt-3">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>Danh Mục</span>
+                        </div>
+                        <ul>
+                            <!-- Hiển thị các loại sản phẩm, mỗi loại sản phẩm sẽ tạo một link -->
+                            @foreach (var loai in db.LoaiSanPhams)
+                            {
+                                <li>
+                                    <!-- Liên kết sẽ đưa đến controller SanPham với id_loaisp là giá trị của IDLoaiSP -->
+                                    <a class="@loai.Icon" href="@Url.Action("SanPham", "SanPham", new { id_loaisp = loai.IDLoaiSP })">
+                                        @loai.TenLoaiSP
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="@Url.Action("SanPham", "SanPham")" method="get" style="position:relative;">
+                                <input type="text" name="keyword" placeholder="Bạn cần tìm gì ?" style="border-radius:5px">
+                                <button type="submit" class="site-btn">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i style="text-align:center" class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>036 660 2046</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                    @RenderSection("Slider", required: false)
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <!-- Breadcrumb Section Begin -->
+    @RenderBody()
+    <!-- Related Product Section End -->
+    <!-- Footer Section Begin -->
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a href="./index.html"><img src="https://vstep.nctu.edu.vn/wp-content/uploads/2024/07/Logo-trang.png" alt=""></a>
+                    </div>
+                    @foreach (var cn in db.ChiNhanhs)
+                    {<ul>
+                         <li>Tên chi nhánh: @cn.Ten_CN</li>
+                            <li>Địa chỉ: @cn.DiaChi</li>
+                            <li>Phone: @cn.SDT</li>
+                            <li>Email: ...</li>
+                        </ul>
+                    }
+                        
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                <div class="footer__widget">
+                    <h4>Giản Viên Hướng Dẫn</h4>
+                    <p>Nguyễn Mỹ Phụng</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="footer__widget">
+                    <h4>Giản Viên Phản Biện</h4>
+                    <p>Bùi Thị Diễm Trinh</p>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="footer__copyright">
+                    <div class="footer__copyright__text">
+                        <h5>Nhóm Sinh Viên Thực Hiện</h5>
+                        <p>Cù Thành Đạt</p>
+                        <p>Trần Vũ Cường</p>
+                    </div>
+                    <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/JavaScriptExtra.js"></script>
+    <!--Start Js Slider Banner-->
+    <script>
+        $(document).ready(function () {
+            $(".hero__slider").owlCarousel({
+                items: 1, // Hiển thị 1 mục tại một thời điểm
+                loop: true, // Vòng lặp
+                autoplay: true, // Tự động trượt
+                autoplayTimeout: 3000, // Thời gian giữa các lần trượt (3 giây)
+                autoplayHoverPause: true, // Dừng lại khi di chuột qua
+                nav: true, // Hiển thị nút điều hướng
+                dots: true // Hiển thị các dấu chấm điều hướng
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".set-bg").each(function () {
+                var bg = $(this).data("setbg");
+                $(this).css("background-image", "url(" + bg + ")");
+            });
+        });
+    </script>
+    <!--End Js Slider Banner-->
+    <!--Start Js Login-->
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+</body>
+
+</html>
+

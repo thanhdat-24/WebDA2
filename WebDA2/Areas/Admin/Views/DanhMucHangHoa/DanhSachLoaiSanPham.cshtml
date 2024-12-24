@@ -1,0 +1,182 @@
+﻿@model IEnumerable<WebDA2.Models.LoaiSanPham>
+@{
+    ViewBag.Title = "DanhSachLoaiSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh Sách Loại Sản Phẩm</h2>
+
+<div class="row space-top">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <a href="@Url.Action("ThemLoaiSanPham", "DanhMucHangHoa")" class="btn btn-success btn-lg">Thêm Loại Sản Phẩm</a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm loại sản phẩm">
+            <span class="input-group-btn">
+                <button class="btn btn-danger" type="button">Tìm kiếm</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped mt-4">
+    <thead style="color:white; background-color:#007bff;">
+        <tr>
+            <th>Icon</th>
+            <th>Tên Loại Sản Phẩm</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a class="@item.Icon"></a></td>
+                <td>@item.TenLoaiSP</td>
+                <td>
+                    <a href="@Url.Action("CapNhatLoaiSanPham", "DanhMucHangHoa", new { id = item.IDLoaiSP })" class="btn btn-warning">
+                        Sửa
+                    </a>
+                    <a href="@Url.Action("XoaLoaiSanPham", "DanhMucHangHoa", new { id = item.IDLoaiSP })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này không?');">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    /* Chỉnh sửa background của trang */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Tiêu đề */
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    /* Định dạng cho các hàng trong bảng */
+    .table {
+        margin-top: 20px;
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    /* Tiêu đề bảng */
+    .table thead {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Dòng bảng khi hover */
+    .table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Cột icon */
+    .table td img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
+
+    /* Các nút thao tác */
+    .btn {
+        font-size: 14px;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    /* Tìm kiếm */
+    .input-group {
+        margin-top: 20px;
+    }
+
+    .input-group input {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .input-group-btn button {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+
+    .input-group-btn button:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Nút Thêm */
+    .btn-lg {
+        font-size: 18px;
+        padding: 12px 24px;
+    }
+
+    /* Phần Form lọc chi nhánh */
+    .form-inline select,
+    .form-inline button {
+        font-size: 16px;
+        padding: 8px;
+        border-radius: 4px;
+    }
+
+    .form-inline select {
+        margin-right: 10px;
+    }
+
+    /* Padding cho các phần tử */
+    .space-top {
+        margin-top: 20px;
+    }
+
+    .space {
+        margin: 20px 0;
+    }
+</style>
+

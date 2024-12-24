@@ -1,0 +1,41 @@
+﻿@model WebDA2.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "DangKy_ThanhCong";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style>
+    .swal2-confirm {
+        background-color: red; /* Màu nền của nút OK */
+        color: white; /* Màu chữ của nút OK */
+        border: none; /* Bỏ viền nếu có */
+    }
+
+        .swal2-confirm:hover {
+            background-color: darkred; /* Màu nền khi hover */
+        }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                title: 'Thành công!',
+                text: 'Bạn đã đăng ký thành công!',
+                icon: 'success',
+                confirmButtonText: 'Đăng nhập ngay', // Nút chuyển hướng
+                showCancelButton: true, // Hiển thị nút hủy
+                cancelButtonText: 'Hủy', // Văn bản nút hủy
+                timer: 5000, // Thời gian tự động đóng (5 giây)
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Chuyển hướng đến trang đăng nhập
+                    window.location.href = '@Url.Action("DangNhap", "TaiKhoan")';
+                }
+            });
+        });
+    </script>
+}
+
+

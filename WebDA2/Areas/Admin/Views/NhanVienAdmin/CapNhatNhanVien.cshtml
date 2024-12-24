@@ -1,0 +1,290 @@
+﻿@model WebDA2.Models.NhanVien
+@using WebDA2.Models;
+@{
+    ViewBag.Title = "CapNhatNhanVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+<h1><span class="glyphicon glyphicon-user addtop" aria-hidden="true"></span>&nbsp;&nbsp;Sửa quản trị viên</h1>
+
+<div id="sub-main" style="background-color:white;">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+            <ol class="breadcrumb">
+                <li>Hệ thống</li>
+                <li>Quản trị viên</li>
+                <li class="active">Cập Nhật</li>
+            </ol>
+        </div>
+        <div class="hidden-xs col-sm-5 col-md-4 col-lg-3 text-right">
+            <div class="timecount" id="current-time"></div>
+        </div>
+
+    </div>
+    <div class="row margin0 space-top">
+        <div class="option-h4 text-justify">
+            <h4>Thay Đổi Thông Tin Nhân Viên</h4>
+            <p>- Bạn đang cập nhật một tài khoản để quản trị trang web của mình.</p>
+
+            @using (Html.BeginForm("CapNhatNhanVien", "NhanVienAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID_NhanVien)
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenNhanVien, "Tên nhân viên", htmlAttributes: new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @Html.EditorFor(model => model.TenNhanVien, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập Tên Nhân Viên" } })
+                    @Html.ValidationMessageFor(model => model.TenNhanVien, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-xs-12 col-sm-4 col-md-3 col-lg-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_chucvu, "Hãng Sản Xuất", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @{
+                        var chucvunv = db.ChucVus.ToList();
+                        <select name="id_chucvu" class="form-control">
+                            <option value="">---Chức Vụ---</option>
+                            @foreach (var item in chucvunv)
+                            {
+                                <option value="@item.ID_ChucVu" @(item.ID_ChucVu == Model.id_chucvu ? "selected" : "")>@item.TenChucVu</option>
+                            }
+                        </select>
+
+                    }
+                    @Html.ValidationMessageFor(model => model.id_chucvu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_chinhanh, "Chi Nhánh Hoạt Động", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @{
+                        var chinhanh = db.ChiNhanhs.ToList();
+                        <select name="id_chinhanh" class="form-control">
+                            <option value="">---Chi Nhánh---</option>
+                            @foreach (var item in chinhanh)
+                            {
+                                 <option value="@item.ID_CN" @(item.ID_CN == Model.id_chinhanh ? "selected" : "")>@item.Ten_CN</option>
+                            }
+                        </select>
+                    }
+                    @Html.ValidationMessageFor(model => model.id_chinhanh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.id_taikhoan, "Tài Khoản Cấp", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    @{
+                        var taikhoan = db.TaiKhoans.ToList();
+                        <select name="id_taikhoan" class="form-control">
+                            <option value="">---Chọn Tài Khoản---</option>
+                            @foreach (var item in taikhoan)
+                            {
+                                 <option value="@item.ID_TaiKhoan" @(item.ID_TaiKhoan == Model.id_taikhoan ? "selected" : "")>@item.TenDangNhap _ @item.LoaiTaiKhoan</option>
+                            }
+                        </select>
+                    }
+                    @Html.ValidationMessageFor(model => model.id_chinhanh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group space-top">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-2">
+                    <input type="submit" value="Cập Nhật" class="btn btn-success btn-lg btn-a" />
+                </div>
+            </div>
+        </div>
+            }
+        </div>
+    </div>
+</div>
+<style>
+    /* Cấu trúc chung của form */
+    #sub-main {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Tiêu đề chính */
+    h1 {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+        h1 .glyphicon {
+            font-size: 28px;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+    /* Đường dẫn breadcrumb */
+    .breadcrumb {
+        background-color: transparent;
+        margin-bottom: 20px;
+        padding: 0;
+    }
+
+        .breadcrumb li {
+            display: inline;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+            .breadcrumb li + li:before {
+                content: " > ";
+                color: #007bff;
+            }
+
+        .breadcrumb .active {
+            color: #007bff;
+        }
+
+    /* Phần các label và input */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .form-group .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+            .form-group .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            }
+
+        .form-group select.form-control {
+            background-color: #f8f9fa;
+        }
+
+        .form-group .text-danger {
+            font-size: 12px;
+            color: #e74c3c;
+        }
+
+    /* Cải thiện các input button */
+    .btn {
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border: none;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-success:active {
+            background-color: #1e7e34;
+            transform: translateY(2px);
+        }
+
+    .btn-a {
+        display: block;
+        width: 100%;
+    }
+
+    /* Các thông báo lỗi */
+    .validation-summary-errors {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Cải thiện khoảng cách và vị trí */
+    .space-top {
+        margin-top: 30px;
+    }
+
+    .margin0 {
+        margin: 0;
+    }
+
+    .text-justify {
+        text-align: justify;
+    }
+
+    .timecount {
+        text-align:center;
+        font-size: 16px;
+        color:#fff;
+        font-weight: bold;
+    }
+
+        .timecount small {
+            font-size: 14px;
+            color: #999;
+        }
+
+    /* Định dạng cho các ô chọn trong form */
+    select.form-control {
+        font-size: 14px;
+        padding: 8px 10px; /* Điều chỉnh padding để thu hẹp chiều cao */
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        height: auto; /* Đảm bảo chiều cao tự động phù hợp */
+        box-sizing: border-box; /* Đảm bảo chiều cao bao gồm padding và border */
+    }
+
+    /* Định dạng cho các cột trong form */
+    .col-md-2,
+    .col-sm-4 {
+        font-weight: bold;
+        color: #333;
+    }
+</style>

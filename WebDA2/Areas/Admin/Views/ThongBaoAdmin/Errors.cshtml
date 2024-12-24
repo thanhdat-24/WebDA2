@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Errors";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<div class="error-wrapper text-center ptb-50 pt-xs-20">
+    <div class="error-text">
+        <h1>404</h1>
+        <h2>Errors! KHÔNG TÌM THẤY TRANG</h2>
+        <p>Xin lỗi nhưng trang bạn đang tìm kiếm không tồn tại, đã bị xóa,<br>tên đã thay đổi hoặc tạm thời không có sẵn. </p>
+    </div>
+    <div class="error-button">
+        <a href="~/">Quay lại trang chủ</a>
+    </div>
+</div>
+
+<style>
+    .error-wrapper {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.error-text h1 {
+    font-size: 120px;
+    color: #ff4747; /* Màu đỏ */
+    font-weight: bold;
+    margin: 0;
+}
+
+.error-text h2 {
+    font-size: 24px;
+    color: #333; /* Màu đen */
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.error-text p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+}
+.error-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333; /* Màu đen */
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.error-button a:hover {
+    background-color: #444; /* Hiệu ứng hover */
+}
+
+</style>

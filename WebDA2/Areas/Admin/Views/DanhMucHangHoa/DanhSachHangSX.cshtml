@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WebDA2.Models.HangSX>
+@{
+    ViewBag.Title = "DanhSachHangSX";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh Sách Hãng Sản Xuất</h2>
+
+<div class="row space-top">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <a href="@Url.Action("ThemHangSX", "DanhMucHangHoa")" class="btn btn-success btn-lg">Thêm Hãng Sản Xuất</a>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-right">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Tìm kiếm hãng sản xuất">
+            <span class="input-group-btn">
+                <button class="btn btn-danger" type="button">Tìm kiếm</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<table style="color: #FFD700; font-weight:bold; font-size:30px;" class="table table-bordered table-striped mt-4">
+    <thead style="color:white; background-color:#007bff;">
+        <tr>
+            <th>Icon</th>
+            <th>Tên Hãng Sản Xuất</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.Icon" alt="@item.TenHangSX" style="width:50px; height:50px;"></td>
+                <td>@item.TenHangSX</td>
+                <td>
+                    <a href="@Url.Action("CapNhatHangSX", "DanhMucHangHoa", new { id = item.IDHangSX })" class="btn btn-warning">
+                        Sửa
+                    </a>
+                    <a href="@Url.Action("XoaHangSX", "DanhMucHangHoa", new { id = item.IDHangSX })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa hãng sản xuất này không?');">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

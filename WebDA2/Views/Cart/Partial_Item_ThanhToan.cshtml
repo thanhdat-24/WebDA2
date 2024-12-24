@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebDA2.Models.ShoppingCartItem>
+
+@if (Model != null && Model.Any())
+{
+    var tongtien = decimal.Zero;
+
+    <div class="card shadow">
+        <!-- Header -->
+        <div class="card-header text-center bg-primary text-white">
+            <strong>GIỎ HÀNG</strong>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+            @foreach (var item in Model)
+            {
+                tongtien += item.TotalPrice;
+                <p>@item.ProductName @String.Format("{0:#,##0} VND", item.TotalPrice)</p>
+            }
+            <hr />
+            <p><strong>Tổng tiền:</strong> <span class="text-danger">@String.Format("{0:#,##0} VND", tongtien)</span></p>
+        </div>
+    </div>
+}
+else
+{
+    <!-- Nếu giỏ hàng trống -->
+    <div class="card shadow">
+        <div class="card-header text-center bg-warning text-dark">
+            <strong>GIỎ HÀNG</strong>
+        </div>
+        <div class="card-body text-center">
+            <p class="text-muted">Giỏ hàng của bạn đang trống!</p>
+            <a href="/sanpham/sanpham" class="btn btn-primary">Mua Sắm Ngay</a>
+        </div>
+    </div>
+}

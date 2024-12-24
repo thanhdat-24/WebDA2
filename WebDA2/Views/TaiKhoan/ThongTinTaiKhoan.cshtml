@@ -1,0 +1,67 @@
+﻿@model WebDA2.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "ThongTinTaiKhoan";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style>
+    .container_profile {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+        .container_profile h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+    .account_info {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+        .account_info p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+    .profile_image {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 10px;
+    }
+
+    .button_container {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+<div class="container_profile">
+    <h2>Thông tin tài khoản</h2>
+    <div class="account_info">
+
+        <p><strong>Tên tài khoản:</strong> @Model.TenDangNhap</p>
+
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Số điện thoại:</strong> @Model.SDT</p>
+
+    </div>
+    <div class="button_container">
+        <a href="~/TaiKhoan/DangXuat" class="btn btn-danger">Đăng Xuất <i class="fa-solid fa-right-from-bracket"></i></a>
+        <a href="~/TaiKhoan/CapNhat?id=@Model.ID_TaiKhoan" class="btn btn-success">Chỉnh Sửa <i class="fa-solid fa-pen"></i></a>
+        @if (Model.LoaiTaiKhoan == "Admin" || Model.LoaiTaiKhoan == "QuanLy")
+        {
+            <a href="@Url.Action("DangNhapAdmin", "DangNhapAdmin", new { area = "Admin" })" class="btn btn-secondary">Trang Admin <i class="fa-solid fa-user-gear"></i></a>
+        }
+        <a href="@Url.Action("TrangChu", "Home")" class="btn btn-primary">Quay lại trang chủ <i class="fa-solid fa-house"></i></a>
+    </div>
+
+</div>

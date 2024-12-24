@@ -1,0 +1,138 @@
+﻿@model IEnumerable<WebDA2.Models.SanPham>
+@using WebDA2.Models;
+@{
+    ViewBag.Title = "Sản Phẩm";
+    CuaHangITEntities db = new CuaHangITEntities();
+}
+<style>
+    .sidebar__item button button {
+        width: 70px; /* Bao phủ toàn bộ chiều rộng nút */
+        height: 30px; /* Bao phủ toàn bộ chiều cao nút */
+    }
+    .sidebar__item button img {
+        width: 60px; /* Bao phủ toàn bộ chiều rộng nút */
+        height: 20px; /* Bao phủ toàn bộ chiều cao nút */
+    }
+
+</style>
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <!-- Left menu -->
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Loại Sản Phẩm</h4>
+                        <ul>
+                            @foreach (var loai in db.LoaiSanPhams)
+                            {
+                                <li>
+                                    <a href="@Url.Action("SanPham", "SanPham", new { id_loaisp = loai.IDLoaiSP })">
+                                        @loai.TenLoaiSP
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="sidebar__item sidebar__item__color--option">
+                        <h4>Hãng Sản Xuất</h4>
+                        <div>
+                            @foreach (var hang in db.HangSXes)
+                            {
+                                <button class="btn btn-outline-danger m-1 @(Request.QueryString["id_hangsx"] == hang.IDHangSX.ToString() ? "active" : "")"
+                                        onclick="location.href='@Url.Action("SanPham", "SanPham", new { id_hangsx = hang.IDHangSX })'">
+                                    
+                                    <img src="@hang.Icon" alt="@hang.TenHangSX" />
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Left menu -->
+            <!-- Right content: Product list -->
+            <div class="container_item col-lg-9 col-md-7">
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                <span>Sắp xếp theo </span>
+                                <select id="sortOrder" onchange="applySort()">
+                                    <option value="">Mặc Định</option>
+                                    <option value="price_asc" @(Request.QueryString["sortOrder"] == "price_asc" ? "selected" : "")>Giá: Thấp đến Cao</option>
+                                    <option value="price_desc" @(Request.QueryString["sortOrder"] == "price_desc" ? "selected" : "")>Giá: Cao đến Thấp</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="filter__found">
+                                <h6><span>@Model.Count()</span> Sản phẩm được tìm thấy</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3">
+                            <div class="filter__option">
+                                <span class="icon_grid-2x2"></span>
+                                <span class="icon_ul"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Hiển thị thông báo kết quả tìm kiếm -->
+                @if (!string.IsNullOrEmpty(Request.QueryString["keyword"]))
+                {
+                    <div class="search-result-notice" style="margin: 20px 0; text-align: left;">
+                        <h5>Hiển thị kết quả cho: <strong>@Request.QueryString["keyword"]</strong></h5>
+                    </div>
+                }
+                <!-- Hiển thị danh sách sản phẩm -->
+                <div class="row">
+                    @if (!Model.Any())
+                    {
+                        <h4 style="margin-top: 40px;">Không tìm thấy sản phẩm nào phù hợp!</h4>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                <a href="@Url.Action("SanPham_ChiTiet", "SanPham", new { id = item.IDSanPham })" class="product-card-link">
+                                    <div class="product__item">
+                                        <div class="product__item__pic" style="background-image:url('@item.Anh');"></div>
+                                        <div style="width:90%; text-align:center" class="product__item__text">
+                                            <h6>
+                                                <span style="font-weight:bold;">@item.TenSanPham</span>
+                                            </h6>
+                                            <h5>
+                                                <span class="table-warning">
+                                                    @string.Format("{0:0#,0}", item.Gia) đ
+                                                </span>
+                                                <div class="price-row">
+                                                    <span class="text-danger">
+                                                        @string.Format("{0:0#,0}", item.GiaKhuyenMai) đ
+                                                    </span>
+                                                    <span class="product_sale">
+                                                        @item.PhanTramDaGiam%
+                                                    </span>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <!-- End Right content -->
+        </div>
+    </div>
+</section>
+<script>
+    function applySort() {
+        const sortOrder = document.getElementById('sortOrder').value;
+        const url = new URL(window.location.href);
+        url.searchParams.set('sortOrder', sortOrder);
+        window.location.href = url;
+    }
+</script>

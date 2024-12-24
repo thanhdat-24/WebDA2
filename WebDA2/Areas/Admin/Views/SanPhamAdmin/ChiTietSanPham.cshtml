@@ -1,0 +1,158 @@
+﻿@model WebDA2.Models.SanPhamViewModel
+
+@{
+    ViewBag.Title = "ChiTietSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    /* Container */
+    .detail_pro {
+        background-color: #f9f9f9; /* Màu nền sáng hơn */
+        font-size: 16px;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 1200px; /* Giới hạn chiều rộng */
+        transition: transform 0.3s ease;
+    }
+
+        .detail_pro:hover {
+            transform: scale(1.02); /* Hiệu ứng phóng to khi hover */
+        }
+
+    /* Section */
+    .section {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 15px;
+        color: #333;
+        border-bottom: 2px solid #007bff; /* Viền dưới cho tiêu đề */
+        padding-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+        h1 .glyphicon {
+            font-size: 22px;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+    /* Paragraphs */
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 12px 0;
+        color: #555;
+    }
+
+    strong {
+        font-weight: bold;
+        color: #333;
+    }
+
+    span {
+        font-weight: normal;
+        color: #007bff; /* Màu xanh nổi bật cho các giá trị */
+    }
+
+    /* Image styling */
+    img {
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 15px;
+        max-width: 100%; /* Đảm bảo ảnh không bị lệch khi trên màn hình nhỏ */
+    }
+
+    /* Special classes */
+    .product_sale {
+        color: #fb4f4f; /* Màu đỏ cam nổi bật cho giảm giá */
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Button */
+    input[type="button"] {
+        margin-top: 30px;
+        padding: 12px 25px;
+        font-size: 18px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Hiệu ứng nhấn nút */
+        }
+
+        input[type="button"]:active {
+            transform: translateY(2px); /* Hiệu ứng khi nhấn nút */
+        }
+
+</style>
+<div class="detail_pro">
+    <div class="section">
+        <h1><span class="glyphicon glyphicon-info-sign" aria-hidden="true">&nbsp;</span>Thông Tin Sản Phẩm</h1>
+        <p><strong>Tên Sản Phẩm:</strong> <span>@Model.SanPham.TenSanPham</span></p>
+        <p><strong>Ảnh Sản Phẩm:</strong> <img width="160" src="@Model.SanPham.Anh" alt="Hình cục bộ chưa được thêm" /></p>
+        <p><strong>Đường dẫn ảnh:</strong> <a href="@Model.SanPham.AnhOnl">Link hình ảnh trên cloud</a>
+        <p><strong>Hãng Sản Xuất:</strong> <span>@Model.HangSX.TenHangSX</span></p>
+        <p><strong>Loại Sản Phẩm:</strong> <span>@Model.LoaiSanPham.TenLoaiSP</span></p>
+        <p><strong>Sản Phẩm Nổi Bật:</strong> <span>@Model.SanPham.Hot</span></p>
+        <p><strong>Xuất Xứ:</strong> <span>@Model.SanPham.ThongTinSanPham</span></p>
+    </div>
+
+    <div class="section">
+        <h1><span class="glyphicon glyphicon-usd" aria-hidden="true">&nbsp;</span>Giá sản phẩm</h1>
+        <p><strong>Giá Vốn:</strong> <span>@string.Format("{0:0#,0}", Model.SanPham.GiaVon) đ</span></p>
+        <p><strong>Giá Niêm Yết:</strong> <span style="color:#F95700;font-weight:bold;">@string.Format("{0:0#,0}", Model.SanPham.Gia) đ</span></p>
+        <p><strong>Giá Khuyến Mãi:</strong> <span>@string.Format("{0:0#,0}", Model.SanPham.GiaKhuyenMai) đ</span></p>
+        <p><strong>Phầm Trăm Đã Giảm Giá:</strong> <span class="product_sale">-@Model.SanPham.PhanTramDaGiam%</span></p>
+    </div>
+
+    <div class="section">
+        <h1><span class="glyphicon glyphicon-cog" aria-hidden="true">&nbsp;</span>Thông số kỹ thuật</h1>
+        @if (Model.ThongTinChiTiet != null)
+        {
+            <p><strong>CPU:</strong> <span>@Model.ThongTinChiTiet.CPU</span></p>
+            <p><strong>Main:</strong> <span>@Model.ThongTinChiTiet.Main</span></p>
+            <p><strong>RAM:</strong> <span>@Model.ThongTinChiTiet.RAM</span></p>
+            <p><strong>Ổ cứng:</strong> <span>@Model.ThongTinChiTiet.OCUNG</span></p>
+            <p><strong>Card đồ họa:</strong> <span>@Model.ThongTinChiTiet.CARD</span></p>
+            <p><strong>Màn hình:</strong> <span>@Model.ThongTinChiTiet.MANHINH</span></p>
+            <p><strong>Hệ điều hành:</strong> <span>@Model.ThongTinChiTiet.HEDIEUHANH</span></p>
+            <p><strong>Pin:</strong> <span>@Model.ThongTinChiTiet.PIN</span></p>
+        }
+        else
+        {
+            <p>Thông tin chi tiết sản phẩm không có sẵn.</p>
+        }
+    </div>
+
+    <input type="button" onclick="location.href='@Url.Action("TatCaSanPham")'" class="btn btn-primary" value="Quay lại danh sách sản phẩm" />
+    <input type="button" onclick="location.href='@Url.Action("CapNhatSanPham", "SanPhamAdmin", new { id = Model.SanPham.IDSanPham })'" class="btn btn-primary" value="Cập nhật thông tin sản phẩm" />
+</div>
+
+
+
+<!-- Đoạn mã JavaScript để làm tròn số và giữ lại một số thập phân -->
+<script>
+    document.querySelectorAll('.product_sale').forEach(function (element) {
+        var percent = parseFloat(element.textContent);
+        if (!isNaN(percent)) {
+            element.textContent = percent.toFixed(0) + '%';
+        }
+    });
+</script>

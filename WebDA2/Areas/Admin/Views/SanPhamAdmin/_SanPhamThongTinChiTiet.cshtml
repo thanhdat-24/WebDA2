@@ -1,0 +1,53 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading"style="color:Highlight">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true">&nbsp;</span>Thông số kỹ thuật
+
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            @Html.Label("CPU")
+            @Html.TextBox("Cpu", null, new { @class = "form-control", placeholder = "CPU" })
+        </div>
+        <div class="form-group">
+            @Html.Label("MAIN")
+            @Html.TextBox("Main", null, new { @class = "form-control", placeholder = "", style = "background-color: #ffffff;text-align:left;" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("RAM")
+            @Html.DropDownList("Ram", new SelectList(new[]
+            {
+                new { Value = "4GB", Text = "4GB" },
+                new { Value = "8GB", Text = "8GB" },
+                new { Value = "16GB", Text = "16GB" },
+                new { Value = "32GB", Text = "32GB" },
+                new { Value = "64GB", Text = "64GB" }
+            }, "Value", "Text"), "Chọn dung lượng RAM", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Ổ cứng")
+            @Html.TextBox("OCung", null, new { @class = "form-control", placeholder = "Ổ cứng" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Card đồ họa")
+            @Html.TextBox("CardDoHoa", null, new { @class = "form-control", placeholder = "Card đồ họa" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Màn hình")
+            @Html.TextBox("ManHinh", null, new { @class = "form-control", placeholder = "Màn hình" })
+        </div>
+        <div class="form-group">
+            @Html.Label("Hệ điều hành")
+            @Html.DropDownList("HEDIEUHANH", new SelectList(new[]
+            {
+                new{ Value = "Windows",Text = "Windows"},
+                new {Value="IOS", Text = "IOS"},
+            }, "Value","Text"),"Chọn loại hệ điều hành",new { @class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("Pin")
+            @Html.TextBox("Pin", null, new { @class = "form-control", placeholder = "Pin" })
+        </div>
+    </div>
+</div>

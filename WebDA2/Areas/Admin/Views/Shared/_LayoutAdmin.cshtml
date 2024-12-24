@@ -1,0 +1,109 @@
+﻿<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <base href="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="copyright" content="">
+    <title>Quản trị VicTorTech.store</title>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="~/Areas/Admin/css/layout.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <link href="~/Areas/Admin/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/Areas/Admin/images/icon-logo.png">
+
+    <script src="~/Areas/Admin/js/bootstrap.min.js"></script>
+
+    <script src="~/Areas/Admin/js/chart.min.js"></script>
+    <script src="~/Areas/Admin/js/jquery.min.js"></script>
+    <script src="~/Areas/Admin/js/main.js"></script>
+
+
+</head>
+<body>
+    <div class="container-fluid padding0">
+        <header>
+            <div class="nav-side-menu">
+                <div class="brand"><a href="#"><img class="img-responsive margin0auto" src="~/images/~/Areas/Admin/images/logo.png" alt=""></a></div>
+                <div class="toggle-btn" data-toggle="collapse" data-target="#menu-content"></div>
+                <div class="menu-list">
+                    <ul id="menu-content" class="menu-content collapse">
+                        <li class="active"><a href="~/Admin"><span class="glyphicon glyphicon-globe" aria-hidden="true">&nbsp;</span>Tổng quan</a></li>
+
+                        <li data-toggle="collapse" data-target="#product" class="collapsed">
+                            <a href="#"><span class="glyphicon glyphicon-gift" aria-hidden="true">&nbsp;</span>Sản phẩm<span class="caret"></span></a>
+                            <ul class="sub-menu collapse" id="product">
+                                <li><a href="~/Admin/SanPhamAdmin/TatCaSanPham"><span class="glyphicon glyphicon-paperclip" aria-hidden="true">&nbsp;</span>Tất cả sản phẩm</a></li>
+                                <li><a href="~/Admin/KhoHangAdmin/TatCaKhoHang"><span class="glyphicon glyphicon-folder-open" aria-hidden="true">&nbsp;</span>Kho Hàng</a></li>
+                            </ul>
+                        </li>
+
+                        <li data-toggle="collapse" data-target="#media" class="collapsed">
+                            <a href="#"><span class="glyphicon glyphicon-star" aria-hidden="true">&nbsp;</span>Đa phương tiện<span class="caret"></span></a>
+                            <ul class="sub-menu collapse" id="media">
+                                <li><a href="#"><span class="glyphicon glyphicon-music" aria-hidden="true">&nbsp;</span>Âm nhạc</a></li>
+                                <li><a href="https://postimg.cc/gallery/QB0qfWC"><span class="glyphicon glyphicon-picture" aria-hidden="true">&nbsp;</span>Hình ảnh</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true">&nbsp;</span>Phim ảnh</a></li>
+                            </ul>
+                        </li>
+
+                        <li><a href="~/Admin/KhachHang/DanhSachKhachHang"><span class="glyphicon glyphicon-heart" aria-hidden="true">&nbsp;</span>Khách hàng</a></li>
+                        <li><a href="~/Admin/NhanVienAdmin/DanhSachNhanVien"><span class="glyphicon glyphicon-user" aria-hidden="true">&nbsp;</span>Quản trị viên</a></li>
+                        <li><a href="~/Admin/TaiKhoanAdmin/DanhSachTaiKhoan"><span class="fa-solid fa-lock" aria-hidden="true">&nbsp;</span>Quản lý tài khoản</a></li>
+                        <li><a href="~/Admin/HoaDonAdmin/DanhSachDonHang"><span class="fas fa-receipt" aria-hidden="true">&nbsp;</span>Quản lý đơn hàng</a></li>
+                        <li><a href="~/Admin/QuanTriChiNhanh/DanhSachChiNhanh"><span class="fa-solid fa-store" aria-hidden="true">&nbsp;</span>Quản trị chi nhánh</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Thêm mã JavaScript/jQuery -->    
+        </header>
+        <div id="main">
+            <nav class="navbar navbar-default">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active-child" style="background-color:red;"><a style="color: white;" href="~/Home">WWW.VicTorTech.store</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false" id="zeptain-link">
+                            @if (Session["AdminUser"] != null)
+                            {
+                                @:Xin Chào: @Session["AdminUser"] <span class="caret caret-fix"></span>
+                                @: @Session[""]
+                            }
+                            else
+                            {
+                                @:Chưa Đăng Nhập <span class="caret caret-fix"></span>
+                            }
+                        </a>
+                        <ul class="dropdown-menu" id="zeptain-dropdown">
+                            <li><a href="homthu.html"><span class="glyphicon glyphicon-envelope" aria-hidden="true">&nbsp;</span>Hòm thư</a></li>
+                            <li><a href="doimatkhau.html"><span class="glyphicon glyphicon-wrench" aria-hidden="true">&nbsp;</span>Đổi mật khẩu</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="~/Admin/DangNhapAdmin/DangXuatAdmin"><span class="glyphicon glyphicon-off" aria-hidden="true">&nbsp;</span>Thoát</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <div id="sub-main">
+                @RenderBody()
+            </div>
+            @RenderSection("Scripts", required: false)
+        </div>
+        <footer>
+            Bản quyền © 2024. Thiết kế bởi <a href="#" target="_blank">Cù Thành Đạt</a>
+        </footer>
+    </div>
+
+</body>
+</html>

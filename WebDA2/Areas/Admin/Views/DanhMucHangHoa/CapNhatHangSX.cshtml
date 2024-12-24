@@ -1,0 +1,31 @@
+﻿@model WebDA2.Models.HangSX
+
+@{
+    ViewBag.Title = "Cập nhật Hãng Sản Xuất";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Cập nhật Hãng Sản Xuất</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.HiddenFor(m => m.IDHangSX) <!-- Ẩn trường IDHangSX để truyền giá trị cho controller -->
+        <label for="TenHangSX">Tên Hãng Sản Xuất</label>
+        @Html.TextBoxFor(m => m.TenHangSX, new { @class = "form-control", placeholder = "Nhập tên hãng sản xuất" })
+        @Html.ValidationMessageFor(m => m.TenHangSX, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label for="Icon">Icon</label>
+        @Html.TextBoxFor(m => m.Icon, new { @class = "form-control", placeholder = "Nhập icon cho hãng sản xuất" })
+        @Html.ValidationMessageFor(m => m.Icon, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Cập nhật</button>
+        <a href="@Url.Action("DanhSachHangSX", "DanhMucHangHoa")" class="btn btn-secondary">Quay lại</a>
+    </div>
+}
