@@ -4,87 +4,91 @@
     ViewBag.Title = "CapNhat";
     Layout = "~/Views/Shared/_LayoutMain.cshtml";
 }
-<div class="container" style="margin:100px 0px;">
-    <div class="row">
-        <div class="col-md-12">
-            <h4 style="color:red;"> Cập nhật User</h4>
-            @using (Html.BeginForm("CapNhat", "TaiKhoan", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.ID_TaiKhoan)
-            <div class="form-group">
-                <label class="control-label col-md-2" style="text-align:left;padding-left:20px;">Tên tài khoản</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">Cập Nhật Tài Khoản</h4>
                 </div>
-            </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("CapNhat", "TaiKhoan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ID_TaiKhoan)
 
-            <div class="form-group">
-                <label class="control-label col-md-2" style="text-align:left;padding-left:20px;">Mật khẩu</label>
-                <div class="col-md-10">
-                    <div class="input-group">
-                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", type = "password", id = "passwordField" } })
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary" onclick="togglePassword()" style="border: 1px solid #ced4da;">
-                                <i id="toggleIcon" class="fa fa-eye"></i>
-                            </button>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Tên tài khoản</label>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.TenDangNhap, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.TenDangNhap, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Mật khẩu</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", type = "password", id = "passwordField" } })
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+                                                <i id="toggleIcon" class="fa fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Email</label>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Số điện thoại</label>
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label font-weight-bold">Trạng thái</label>
+                                <div class="col-sm-9 d-flex align-items-center">
+                                    @if (Model.TrangThai)
+                                    {
+                                        <span class="badge badge-success">Hoạt động</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Bị khóa</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-center">
+                                    <button type="submit" class="btn btn-danger btn-lg px-4">Cập nhật</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                    }
                 </div>
             </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" style="text-align:left;padding-left:20px;">Email</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" style="text-align:left;padding-left:20px;">Số điện thoại</label>
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-md-2" style="text-align:left;padding-left:20px;">Trạng thái</label>
-                <div class="col-md-10">
-                    <div>
-                        @if (Model.TrangThai)
-                        {
-                            <span style="color: green; font-weight: bold;">Hoạt động</span>
-                        }
-                        else
-                        {
-                            <span style="color: red; font-weight: bold;">Bị khóa</span>
-                        }
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Chập Nhật" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-            }
         </div>
     </div>
 </div>
+
 <script>
     function togglePassword() {
-        const passwordField = document.getElementById('passwordField');
-        const toggleIcon = document.getElementById('toggleIcon');
+        var passwordField = document.getElementById('passwordField');
+        var toggleIcon = document.getElementById('toggleIcon');
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             toggleIcon.classList.remove('fa-eye');
