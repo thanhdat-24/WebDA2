@@ -109,13 +109,32 @@ namespace WebDA2.Areas.Admin.Controllers
 
         public ActionResult CapNhatTaiKhoan(int id)
         {
+            // Kiểm tra nếu tài khoản có ID = 1 thì không cho phép cập nhật
+            if (id == 1)
+            {
+                ViewBag.ErrorMessage = "Đây là tài khoản quản trị hệ thống, không thể cập nhật.";
+                return View(new TaiKhoan()); // Trả về một đối tượng TaiKhoan rỗng thay vì null
+            }
             TaiKhoan timkiemUser = db.TaiKhoans.Find(id);
+            if (timkiemUser == null)
+            {
+                return HttpNotFound();
+            }
             return View(timkiemUser);
         }
+
         [HttpPost]
         public ActionResult CapNhatTaiKhoan(TaiKhoan model)
         {
+            // Kiểm tra nếu tài khoản có ID = 1 thì không cho phép cập nhật
+            if (model.ID_TaiKhoan == 1)
+            {
+                ViewBag.ErrorMessage = "Đây là tài khoản quản trị hệ thống, không thể cập nhật.";
+                return View(model); // Trả về view với thông báo lỗi
+            }
+
             TaiKhoan EditUser = db.TaiKhoans.Find(model.ID_TaiKhoan);
+
             // Kiểm tra tên đăng nhập trùng lặp
             var checkTenDangNhap = db.TaiKhoans.Any(u => u.TenDangNhap == model.TenDangNhap && u.ID_TaiKhoan != model.ID_TaiKhoan);
             if (checkTenDangNhap)
@@ -130,6 +149,7 @@ namespace WebDA2.Areas.Admin.Controllers
                 ModelState.AddModelError("SDT", "Số điện thoại đã được sử dụng.");
                 return View(EditUser);
             }
+
             EditUser.TenDangNhap = model.TenDangNhap;
             // Kiểm tra nếu mật khẩu đã được thay đổi, sau đó mã hóa mật khẩu
             if (!string.IsNullOrEmpty(model.MatKhau) && EditUser.MatKhau != model.MatKhau)
@@ -147,15 +167,29 @@ namespace WebDA2.Areas.Admin.Controllers
         }
         public ActionResult XoaTaiKhoan(int id)
         {
+            // Kiểm tra nếu tài khoản có ID = 1 thì không cho phép xóa
+            if (id == 1)
+            {
+                ViewBag.ErrorMessage = "Đây là tài khoản quản trị hệ thống, không thể xóa.";
+                return RedirectToAction("DanhSachTaiKhoan"); // Trả về danh sách tài khoản
+            }
+
             // Tìm đối tượng xóa
             var deleteUser = db.TaiKhoans.Find(id);
+
             // Xóa
             if (deleteUser != null)
             {
                 db.TaiKhoans.Remove(deleteUser);
                 db.SaveChanges();
+
+                // Thêm thông báo thành công
+                TempData["SuccessMessage"] = "Tài khoản đã được xóa thành công.";
             }
+
             return RedirectToAction("DanhSachTaiKhoan");
         }
+
+
     }
 }

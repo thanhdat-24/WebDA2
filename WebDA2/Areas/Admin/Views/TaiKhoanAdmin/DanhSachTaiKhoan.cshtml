@@ -4,7 +4,6 @@
     ViewBag.Title = "DanhSachTaiKhoan";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-
 <style>
     .table thead th {
         text-align: center; /* Căn giữa nội dung */
@@ -22,12 +21,26 @@
         .input-container .btn {
             flex-shrink: 0; /* Đảm bảo nút không co lại */
         }
+
+    .alert {
+        margin-top: 15px;
+    }
+
+    .disabled-link {
+        color: grey; /* Làm mờ màu */
+        pointer-events: none; /* Ngừng sự kiện click */
+        text-decoration: none; /* Loại bỏ gạch chân */
+    }
+
+        .disabled-link i {
+            color: grey; /* Làm mờ biểu tượng */
+        }
 </style>
 
-<h1><span class="glyphicon glyphicon-user addtop" aria-hidden="true"></span>&nbsp;&nbsp;Quản trị viên</h1>
+<h1><span class="glyphicon glyphicon-user addtop" aria-hidden="true"></span>&nbsp;&nbsp;Quản Trị Tài Khoản</h1>
 <ol class="breadcrumb">
     <li>Hệ thống</li>
-    <li class="active">Quản trị viên</li>
+    <li class="active">Quản Trị Tài khoản hệ thống</li>
 </ol>
 
 <div class="row space-top">
@@ -50,6 +63,22 @@
     </div>
 </div>
 
+<!-- Hiển thị thông báo lỗi -->
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<!-- Hiển thị thông báo thành công (nếu có) -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <!-- Tổng Số Lượng Tài Khoản -->
 <div class="row space-top text-center">
     <div class="col-xs-12">
@@ -64,7 +93,6 @@
         <table class="table table-striped table-bordered">
             <thead style="color:white;font-size:18px;">
                 <tr>
-                    <th><input type="checkbox" value=""></th>
                     <th>ID</th>
                     <th>Tài khoản</th>
                     <th>SDT</th>
@@ -78,7 +106,6 @@
                 @foreach (var item in Model)
                 {
                     <tr style="font-size:18px;font-weight:bold;color:red">
-                        <td><input type="checkbox" value=""></td>
                         <td>@Html.DisplayFor(modelItem => item.ID_TaiKhoan)</td>
                         <td>@Html.DisplayFor(model => item.TenDangNhap)</td>
                         <td>@Html.DisplayFor(model => item.SDT)</td>
@@ -91,14 +118,34 @@
                             </label>
                         </td>
                         <td>
-                            <a href="@Url.Action("XoaTaiKhoan", "TaiKhoanAdmin", new { id = item.ID_TaiKhoan })"
-                               onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
+
+                            @if (item.ID_TaiKhoan == 1)
+                            {
+                                <a href="#" class="disabled-link" title="Không thể xóa tài khoản quản trị">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("XoaTaiKhoan", "TaiKhoanAdmin", new { id = item.ID_TaiKhoan })"
+                                   onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này không?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            }
                             &nbsp;|&nbsp;
-                            <a href="@Url.Action("CapNhatTaiKhoan", "TaiKhoanAdmin", new { id = item.ID_TaiKhoan })">
-                                <i class="fas fa-edit"></i>
-                            </a>
+
+                            @if (item.ID_TaiKhoan == 1)
+                            {
+                                <a href="#" class="disabled-link" title="Không thể cập nhật tài khoản quản trị">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("CapNhatTaiKhoan", "TaiKhoanAdmin", new { id = item.ID_TaiKhoan })">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            }
                         </td>
                     </tr>
                 }
@@ -106,6 +153,7 @@
         </table>
     </div>
 </div>
+
 <script>
     document.querySelectorAll('.toggle-status').forEach(function (toggle) {
         toggle.addEventListener('change', function () {

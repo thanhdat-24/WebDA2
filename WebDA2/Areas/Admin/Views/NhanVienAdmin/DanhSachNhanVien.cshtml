@@ -55,7 +55,7 @@
         <table class="table table-striped table-bordered">
             <thead style="color:white;font-size:18px;">
                 <tr>
-                    <th><input type="checkbox" value=""></th>
+                    <th>ID</th>
                     <th>Tài khoản</th>
                     <th>Họ và tên</th>
                     <th>Email</th>
@@ -68,21 +68,40 @@
                 @foreach (var item in Model)
                 {
                     <tr style="font-size:18px;font-weight:bold;color:red">
-                        <td><input type="checkbox" value=""></td>
+                        <td>@Html.DisplayFor(modelItem => item.ID_NhanVien)</td>
                         <td>@Html.DisplayFor(modelItem => item.TaiKhoan.TenDangNhap)</td>
                         <td>@Html.DisplayFor(model => item.TenNhanVien)</td>
                         <td>@Html.DisplayFor(model => item.Email)</td>
                         <td>@Html.DisplayFor(modelItem => item.ChucVu.TenChucVu)</td>
                         <td>@Html.DisplayFor(modelItem => item.ChiNhanh.Ten_CN)</td>
                         <td>
-                            <a href="@Url.Action("XoaNhanVien", "NhanVienAdmin", new { id = item.ID_NhanVien })"
-                               onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này không?');">
-                                <i class="fas fa-trash"></i>
-                            </a>
+                            @if (item.id_chucvu == 1)
+                            {
+                                <a href="#" class="disabled-link" title="Không thể xóa quản trị viên">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("XoaNhanVien", "NhanVienAdmin", new { id = item.ID_NhanVien })"
+                                   onclick="return confirm('Bạn có chắc chắn muốn xóa nhân viên này không?');">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            }
+
                             &nbsp;|&nbsp;
-                            <a href="@Url.Action("CapNhatNhanVien", "NhanVienAdmin", new { id = item.ID_NhanVien })">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                            @if (item.id_chucvu == 1)
+                            {
+                                <a href="#" class="disabled-link" title="Không thể cập nhật quản trị viên">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("CapNhatNhanVien", "NhanVienAdmin", new { id = item.ID_NhanVien })">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            }
                         </td>
                     </tr>
                 }
@@ -101,3 +120,14 @@
         </ul>
     </nav>
 </div>
+<style>
+    .disabled-link {
+        color: grey; /* Làm mờ màu */
+        pointer-events: none; /* Ngừng sự kiện click */
+        text-decoration: none; /* Loại bỏ gạch chân */
+    }
+
+        .disabled-link i {
+            color: grey; /* Làm mờ biểu tượng */
+        }
+</style>
