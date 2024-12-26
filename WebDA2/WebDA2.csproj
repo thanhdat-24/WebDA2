@@ -355,6 +355,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
+    <Compile Include="Controllers\TEstController.cs" />
     <Compile Include="Controllers\ThongBaoController.cs" />
     <Compile Include="Areas\Admin\Filters\AdminLoginFilter.cs" />
     <Compile Include="Controllers\ThongKeDoanhThuController.cs" />
@@ -744,6 +745,7 @@
     <Folder Include="Areas\Admin\Views\Test\" />
     <Folder Include="Views\AdminBase\" />
     <Folder Include="Views\GioHang\" />
+    <Folder Include="Views\TEst\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
